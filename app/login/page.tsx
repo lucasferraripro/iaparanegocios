@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { BookOpen, LogIn } from 'lucide-react'
+import { Settings, LogIn } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -16,13 +16,11 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      // Simples validação de email
       if (!email || !email.includes('@')) {
         setError('Digite um email válido')
         return
       }
 
-      // Armazena auth em localStorage (placeholder - integrar com Supabase depois)
       localStorage.setItem(
         'selecao-ia-auth',
         JSON.stringify({
@@ -31,9 +29,6 @@ export default function LoginPage() {
           timestamp: new Date().toISOString(),
         })
       )
-
-      // TODO: Implementar verificação real com Supabase/Hotmart
-      // Por enquanto, apenas redireciona se tiver "comprado"
 
       router.push('/membros')
     } catch (err) {
@@ -44,23 +39,22 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-xl border border-gray-800/60 bg-gray-900/50 p-8">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <BookOpen className="text-blue-600" size={32} />
-          <h1 className="text-2xl font-bold text-gray-900">IA Prática</h1>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <Settings className="text-gray-400" size={24} />
+          <h1 className="text-xl font-semibold text-white tracking-tight">Seleção IA</h1>
         </div>
 
         {/* Heading */}
-        <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Acesso ao Hub</h2>
-        <p className="text-gray-600 text-center mb-8">Faça login para acessar seus módulos</p>
+        <h2 className="text-2xl font-bold text-white mb-2 text-center">Acesso ao Hub</h2>
+        <p className="text-gray-500 text-center mb-8 text-sm">Faça login para acessar seus módulos</p>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email Input */}
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
               Email
             </label>
             <input
@@ -69,43 +63,35 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-600 focus:ring-2 focus:ring-gray-600 focus:border-transparent outline-none transition"
               disabled={loading}
             />
           </div>
 
-          {/* Error Message */}
           {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="p-3 rounded-lg bg-red-900/30 border border-red-800/60 text-red-400 text-sm">
               {error}
             </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full bg-white text-gray-950 py-3 rounded-lg font-semibold hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading ? 'Conectando...' : (
               <>
-                <LogIn size={20} />
+                <LogIn size={18} />
                 Acessar Hub
               </>
             )}
           </button>
         </form>
 
-        {/* Info Text */}
-        <p className="text-sm text-gray-500 text-center mt-8">
-          ⚠️ Este é um sistema de demonstração. <br />
-          Para ativar acesso real, integre com Hotmart/Supabase.
-        </p>
-
         {/* Back Link */}
         <a
           href="/"
-          className="block text-center text-blue-600 hover:text-blue-700 font-semibold mt-8 transition"
+          className="block text-center text-sm text-gray-500 hover:text-white font-medium mt-8 transition"
         >
           ← Voltar para a home
         </a>

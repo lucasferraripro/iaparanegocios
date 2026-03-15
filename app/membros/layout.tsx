@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { LogOut, BookOpen } from 'lucide-react'
+import { LogOut, Settings } from 'lucide-react'
 
 export default function MembrosLayout({
   children,
@@ -15,7 +15,6 @@ export default function MembrosLayout({
   const [userEmail, setUserEmail] = useState('')
 
   useEffect(() => {
-    // Simples autenticação via localStorage
     const auth = localStorage.getItem('selecao-ia-auth')
     if (!auth) {
       router.push('/login')
@@ -33,42 +32,36 @@ export default function MembrosLayout({
   }
 
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Carregando...</div>
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-950 text-gray-400">
+        Carregando...
+      </div>
+    )
   }
 
-  if (!isAuthenticated) {
-    return null
-  }
+  if (!isAuthenticated) return null
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+    <div className="min-h-screen bg-gray-950 text-white">
+      <header className="sticky top-0 z-50 border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <BookOpen className="text-blue-600" size={28} />
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">IA Prática para Negócios</h1>
-              <p className="text-sm text-gray-500">Seu Hub de Conteúdo</p>
-            </div>
+          <div className="flex items-center gap-2">
+            <Settings size={20} className="text-gray-400" />
+            <span className="text-lg font-semibold tracking-tight">Seleção IA</span>
           </div>
           <div className="flex items-center gap-6">
-            <div className="text-right">
-              <p className="text-sm text-gray-600">Olá,</p>
-              <p className="font-semibold text-gray-900">{userEmail}</p>
-            </div>
+            <span className="text-sm text-gray-500">{userEmail}</span>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold transition"
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-red-400 transition"
             >
-              <LogOut size={20} />
+              <LogOut size={16} />
               Sair
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-12">
         {children}
       </main>

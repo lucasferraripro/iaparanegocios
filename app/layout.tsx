@@ -13,9 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IA Prática para Negócios | Aprenda IA Aplicada",
-  description: "Implementar IA em seu negócio em poucas horas. 10 módulos práticos de IA para empreendedores digitais.",
-  keywords: ["IA", "negócio", "automação", "entrepreneurship"],
+  title: "Seleção IA | IA Prática para Negócios",
+  description: "Checklists, ferramentas e estruturas de IA aplicada a negócios. Por Lucas Ferrari.",
 };
 
 export default function RootLayout({
@@ -24,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
