@@ -1,0 +1,72 @@
+[
+  {
+    "id": "trafego-automatico",
+    "titulo": "Gerencie seu Tráfego Automaticamente",
+    "slug": "gerencie-trafego",
+    "descricao": "Como usar IA para gerenciar Facebook Ads e tráfego pago sem gastar horas diárias",
+    "conteudo": "## Módulo: Gestão de Tráfego 100% com IA\n\n### O que você vai aprender:\n- Como Claude + Facebook Ads API automatizam campanha\n- Estrutura de prompt para análise de performance\n- Setup de automação com n8n\n\n### Checklist de Implementação:\n\n**Passo 1: Setup Inicial (30 min)**\n- [ ] Crear conta Facebook Business Manager\n- [ ] Gerar chave de API do Facebook\n- [ ] Conectar Claude API\n\n**Passo 2: Criar Automação (45 min)**\n- [ ] Criar prompt para análise de anúncios\n- [ ] Setup em n8n ou Make\n- [ ] Testar com campanha pequena\n\n**Passo 3: Escalar (sem limite)**\n- [ ] Aplicar em todas as campanhas\n- [ ] Monitorar e otimizar\n- [ ] Documentar o que funciona\n\n### Resultado esperado:\nRedução de 70% do tempo em análise. Campanhas mais eficientes. Tráfego mais qualificado."
+  },
+  {
+    "id": "conteudo-automatico",
+    "titulo": "Crie Conteúdo Automaticamente",
+    "slug": "crie-conteudo-automatico",
+    "descricao": "Máquina de conteúdo com IA: vídeos, posts e design sem editor humano",
+    "conteudo": "## Módulo: Máquina de Conteúdo IA\n\n### O que você vai aprender:\n- Claude para copywriting de reels\n- Midjourney para design automático\n- Remotion para edição de vídeos com código\n- Agendamento automático no Instagram\n\n### Checklist de Implementação:\n\n**Passo 1: Preparar Base (1 hora)**\n- [ ] Coletar 20 exemplos de posts que funcionam seu nicho\n- [ ] Escrever brand voice guide (Tom e mensagem)\n- [ ] Listar tópicos de conteúdo para 30 dias\n\n**Passo 2: Criar Sistema (2 horas)**\n- [ ] Estruturar prompt no Claude para gerar copy\n- [ ] Gerar 30 roteiros de conteúdo\n- [ ] Usar Midjourney para 10 imagens de teste\n- [ ] Agendar no Meta Business Suite\n\n**Passo 3: Escalabilidade (contínuo)**\n- [ ] Produzir 5-10 posts/dia no automático\n- [ ] Medir engajamento\n- [ ] Refinar prompt baseado em dados\n\n### Resultado esperado:\n1 mês de conteúdo criado em <4 horas. Consistência garantida. Mais tempo para vendas."
+  },
+  {
+    "id": "app-vendendo",
+    "titulo": "Sistema de Vendas Automático",
+    "slug": "sistema-vendas-automatico",
+    "descricao": "App com assinatura que vende sozinho enquanto você dorme",
+    "conteudo": "## Módulo: App Vendendo Sozinho\n\n### O que você vai aprender:\n- Criar app em Lovable (interface) + backend simples\n- Integrar Stripe para assinatura recorrente\n- Configurar triggers automáticos de cobrança\n- Dashboard para acompanhar vendas\n\n### Checklist de Implementação:\n\n**Passo 1: Definir Oferta (1 hora)**\n- [ ] Escolher problema que sua oferta resolve\n- [ ] Definir preço de assinatura (mensal/anual)\n- [ ] Escrever 3 benefícios principais\n- [ ] Criar lista de gatilhos (quando cobrar)\n\n**Passo 2: Criar App (3-4 horas)**\n- [ ] Fazer interface em Lovable\n- [ ] Integrar login (Supabase Auth)\n- [ ] Conectar Stripe para pagamento\n- [ ] Criar dashboard de usuário\n- [ ] Testar fluxo completo\n\n**Passo 3: Lançar (1 hora)**\n- [ ] Publicar no Vercel\n- [ ] Configurar domínio customizado\n- [ ] Testar pagamento com cartão real\n- [ ] Anunciar nas redes\n\n### Resultado esperado:\nReceita recorrente automática. Escala sem adicionar trabalho. Produto digital robusto."
+  },
+  {
+    "id": "instagram-automatico",
+    "titulo": "Atendimento Automático no Instagram",
+    "slug": "atendimento-instagram",
+    "descricao": "DMs respondidas automaticamente 24h, qualificação de leads automática",
+    "conteudo": "## Módulo: Instagram Respondendo Sozinho\n\n### O que você vai aprender:\n- Usar Claude API + Instagram Business API\n- Criar agente que qualifica leads\n- Integrar com n8n para automação\n- Escalonar para WhatsApp e Telegram\n\n### Checklist de Implementação:\n\n**Passo 1: Setup (30 min)**\n- [ ] Conectar conta Instagram ao Meta Business Manager\n- [ ] Gerar token de acesso\n- [ ] Ativar Instagram API\n\n**Passo 2: Criar Agente IA (1-2 horas)**\n- [ ] Estruturar prompt para Claude\n- [ ] Treinar com 5-10 conversas exemplo\n- [ ] Testar respostas\n\n**Passo 3: Integrar Automação (1 hora)**\n- [ ] Setup no n8n\n- [ ] Webhook Instagram → n8n → Claude → resposta automática\n- [ ] Testar com amigos\n\n**Passo 4: Escalar (contínuo)**\n- [ ] Monitorar qualidade das respostas\n- [ ] Refinar instruções do agente\n- [ ] Adicionar WhatsApp/Telegram\n\n### Resultado esperado:\nZero leads perdidos por demora. Qualificação automática 24/7. Taxa de resposta de 100%."
+  },
+  {
+    "id": "pesquisa-mercado",
+    "titulo": "Analise Oportunidades com IA",
+    "slug": "analise-oportunidades",
+    "descricao": "Pesquisa de mercado automática: coleta de dados, análise de concorrência, oportunidades",
+    "conteudo": "## Módulo: Pesquisa de Mercado Automática\n\n### O que você vai aprender:\n- Usar Exa AI para buscar dados automática\n- Claude para análise de tendências\n- Criar dashboard de oportunidades\n- Monitoramento contínuo sem esforço\n\n### Checklist de Implementação:\n\n**Passo 1: Definir Mercado (30 min)**\n- [ ] Escolher seu nicho (ex: agentes de viagem)\n- [ ] Listar 5 concorrentes principais\n- [ ] Definir 3-5 métricas importantes\n\n**Passo 2: Automatizar Coleta (1 hora)**\n- [ ] Setup Exa AI com Claude\n- [ ] Criar query para buscar dados\n- [ ] Agendar execução diária\n- [ ] Salvar resultados em Supabase\n\n**Passo 3: Análise & Relatório (1-2 horas)**\n- [ ] Claude analisa dados coletados\n- [ ] Cria dashboard visual (Looker/Metabase)\n- [ ] Gera insights automáticos\n- [ ] Email semanal com oportunidades\n\n**Passo 4: Usar Inteligência (contínuo)**\n- [ ] Revisar insights a cada semana\n- [ ] Tomar decisões baseadas em dados\n- [ ] Documentar o que funcionou\n\n### Resultado esperado:\nDados atualizados diariamente. Decisões baseadas em dados reais. Vantagem competitiva."
+  },
+  {
+    "id": "landing-pages",
+    "titulo": "Landing Pages Rápidas",
+    "slug": "landing-pages-rapidas",
+    "descricao": "Criar landing pages em minutos com Lovable, com integração de pagamento",
+    "conteudo": "## Módulo: Site em Minutos com Lovable\n\n### O que você vai aprender:\n- Lovable para criar interface visual sem código\n- Integração com Stripe/Hotmart para pagamento\n- SEO básico\n- Deploy automático\n\n### Checklist de Implementação:\n\n**Passo 1: Planejar (30 min)**\n- [ ] Definir o que a página vende\n- [ ] Escrever headline principal\n- [ ] Listar 5 benefícios\n- [ ] Escolher call-to-action\n\n**Passo 2: Criar em Lovable (1-2 horas)**\n- [ ] Entrar em Lovable.dev\n- [ ] Descrever o layout que quer\n- [ ] Ajustar cores e imagens\n- [ ] Adicionar copy e CTA\n- [ ] Testar responsivo\n\n**Passo 3: Integrar Pagamento (1 hora)**\n- [ ] Conectar Stripe ou Hotmart\n- [ ] Testarcriança de checkout\n- [ ] Configurar email de confirmação\n\n**Passo 4: Publicar (30 min)**\n- [ ] Deploy no Vercel\n- [ ] Configurar domínio customizado\n- [ ] Google Analytics\n- [ ] Teste final\n\n### Resultado esperado:\nLanding page profissional em <4 horas. Conversão otimizada. Vendas começam no mesmo dia."
+  },
+  {
+    "id": "multiplos-agentes",
+    "titulo": "Sistema com Vários Agentes",
+    "slug": "sistema-varios-agentes",
+    "descricao": "Múltiplos agentes de IA trabalhando juntos: pesquisa, análise, execução",
+    "conteudo": "## Módulo: Departamento Inteiro de Funcionários de IA\n\n### O que você vai aprender:\n- Arquitetar sistema com múltiplos agentes\n- Coordenação entre agentes\n- Pipelines complexos\n- Monitoramento e debug\n\n### Checklist de Implementação:\n\n**Passo 1: Design da Arquitetura (1 hora)**\n- [ ] Definir cada agente (pesquisa, análise, criação, verificação)\n- [ ] Definir inputs/outputs de cada um\n- [ ] Mapear fluxo de dados\n\n**Passo 2: Criar Agentes (2-3 horas)**\n- [ ] Agente 1: Pesquisa de dados\n- [ ] Agente 2: Análise de dados\n- [ ] Agente 3: Criação de conteúdo\n- [ ] Agente 4: Revisão de qualidade\n\n**Passo 3: Orquestrar (1-2 horas)**\n- [ ] Usar n8n ou Make para coordenar\n- [ ] Testar com exemplo simples\n- [ ] Escalar para múltiplas tarefas\n\n**Passo 4: Monitorar (contínuo)**\n- [ ] Dashboard de execução\n- [ ] Alertas de erro\n- [ ] Otimização contínua\n\n### Resultado esperado:\nSistema que funciona 24/7 sem intervenção. Escalabilidade infinita. Custo mínimo."
+  },
+  {
+    "id": "whatsapp-vendas",
+    "titulo": "Fluxo Automático de Vendas",
+    "slug": "fluxo-vendas-whatsapp",
+    "descricao": "Chatbot + qualificação + agendamento tudo automático no WhatsApp",
+    "conteudo": "## Módulo: Vendas Automáticas no WhatsApp\n\n### O que você vai aprender:\n- Claude API + WhatsApp Business API\n- Fluxo de conversa automático\n- Qualificação de leads\n- Integração com agenda\n\n### Checklist de Implementação:\n\n**Passo 1: Setup WhatsApp API (1 hora)**\n- [ ] Aplicar para WhatsApp Business API\n- [ ] Conseguir token de acesso\n- [ ] Configurar webhook\n\n**Passo 2: Criar Fluxo de Venda (2 horas)**\n- [ ] Escrever script de saudação\n- [ ] Script de qualificação (3-5 perguntas)\n- [ ] Script de agendamento\n- [ ] Script de follow-up\n\n**Passo 3: Integrar com n8n (1-2 horas)**\n- [ ] Webhook WhatsApp → n8n\n- [ ] Claude processa mensagem\n- [ ] Responde automaticamente\n- [ ] Salva info de lead\n\n**Passo 4: Conexão com Calendário (1 hora)**\n- [ ] Conectar Google Calendar\n- [ ] Sugerir horários disponíveis\n- [ ] Agendar automaticamente\n- [ ] Enviar confirmação\n\n### Resultado esperado:\nZero mensagens perdidas. Leads qualificados automaticamente. Taxa de agendamento de 80%+."
+  },
+  {
+    "id": "marketing-completo",
+    "titulo": "Stack Integrado de Marketing",
+    "slug": "stack-marketing-completo",
+    "descricao": "Tráfego + conteúdo + vendas + análise tudo integrado e automático",
+    "conteudo": "## Módulo: Marketing Digital 100% Automático\n\n### O que você vai aprender:\n- Integrar todos os sistemas anteriores\n- Criar pipeline de tráfego a vendas\n- Análise de ROI automática\n- Otimização contínua\n\n### Checklist de Implementação:\n\n**Passo 1: Mapear Fluxo Completo (1 hora)**\n- [ ] Tráfego (Facebook Ads automático)\n- [ ] Landing page (Lovable)\n- [ ] Email (Resend automático)\n- [ ] Vendas (WhatsApp automático)\n- [ ] Análise (Dashboard em tempo real)\n\n**Passo 2: Integrar Sistemas (2-3 horas)**\n- [ ] Pixel rastreando usuários\n- [ ] Lead magnet automático\n- [ ] Email sequence automática\n- [ ] Retargeting automático\n\n**Passo 3: Criar Dashboard (1-2 horas)**\n- [ ] Métrica: Custo por lead\n- [ ] Métrica: Taxa de conversão\n- [ ] Métrica: Valor médio de venda\n- [ ] Métrica: ROI por canal\n\n**Passo 4: Otimizar (contínuo)**\n- [ ] Testar diferentes ângulos de anúncio\n- [ ] A/B test na landing page\n- [ ] Refinar copy\n- [ ] Aumentar orçamento do que funciona\n\n### Resultado esperado:\nMarketing que funciona automaticamente. ROI visível e otimizável. Renda escalável."
+  },
+  {
+    "id": "aula-secreta",
+    "titulo": "Compilação: Do Zero ao Automático",
+    "slug": "aula-secreta-compilacao",
+    "descricao": "Overview completo: como conectar tudo que aprendeu, checklist de implementação total, próximos passos",
+    "conteudo": "## Módulo: A Aula Secreta\n\n### O que você vai aprender:\nComo colocar TUDO que aprendeu funcionando de forma integrada em seu negócio específico.\n\n### FASE 1: Seu Diagnóstico (30 min)\nResponda:\n- [ ] Qual é seu problema principal AGORA?\n- [ ] Se tivesse IA resolvendo isso, quanto economizaria por mês?\n- [ ] Qual é seu maior gargalo (tráfego, conversão, atendimento)?\n\n### FASE 2: Escolher Seu Caminho (1 hora)\nSeu negócio é:\n- [ ] E-commerce / Dropshipping?\n  → Foco: Tráfego + Atendimento automático\n- [ ] Consultoria / Serviços?\n  → Foco: Lead magnet + WhatsApp + Agendamento\n- [ ] Conteúdo / Influencer?\n  → Foco: Conteúdo automático + Crescimento\n- [ ] SaaS / Produto digital?\n  → Foco: Landing page + Sistema de vendas\n- [ ] Outro?\n  → Customizar baseado em seus gargalos\n\n### FASE 3: Implementação 30 Dias (sua roadmap)\n\n**Semana 1: Setup Base (Passo-a-passo)**\n- [ ] Dia 1-2: Abrir contas necessárias (Supabase, n8n, Claude)\n- [ ] Dia 3-4: Aprender Lovable ou Framer para interface\n- [ ] Dia 5-6: Criar primeira landing page\n- [ ] Dia 7: Publicar e testar\n\n**Semana 2: Primeiro Agente (Copiar exatamente)**\n- [ ] Dia 8-10: Escolher qual agente começar\n- [ ] Dia 11-12: Criar prompt e testar\n- [ ] Dia 13-14: Integrar e automatizar\n- [ ] Dia 15: Documentar o que funciona\n\n**Semana 3-4: Expandir & Otimizar**\n- [ ] Dia 16-21: Adicionar segundo agente\n- [ ] Dia 22-25: Integrar com terceiro agente\n- [ ] Dia 26-28: Análise de dados e otimização\n- [ ] Dia 29-30: Planejar próximas 30 dias\n\n### Resultado esperado:\nSeu primeiro sistema de IA funcionando. Comprovado com números. Pronto para escalar."
+  }
+]
