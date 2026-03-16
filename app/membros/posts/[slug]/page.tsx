@@ -37,8 +37,8 @@ export default function PostPage() {
   if (!post) {
     return (
       <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-white mb-4">Módulo não encontrado</h1>
-        <Link href="/membros" className="text-gray-400 hover:text-white transition">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Módulo não encontrado</h1>
+        <Link href="/membros" className="text-gray-700 hover:text-gray-900 transition">
           ← Voltar para o hub
         </Link>
       </div>
@@ -63,37 +63,37 @@ export default function PostPage() {
       <div className="mb-8">
         <Link
           href="/membros"
-          className="flex items-center gap-2 text-gray-400 hover:text-white font-medium mb-6 transition"
+          className="flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium mb-6 transition"
         >
           <ArrowLeft size={18} />
           Voltar para o hub
         </Link>
 
         <div className="flex items-center gap-3 mb-4">
-          <span className="rounded-md bg-gray-800 px-2.5 py-1 text-xs font-medium text-gray-400">
+          <span className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
             {post.tag || 'Módulo'}
           </span>
-          <span className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1 text-xs text-gray-600">
             <Clock size={12} />
             {post.tempo_leitura || '5 min'}
           </span>
         </div>
 
-        <h1 className="text-3xl font-bold text-white mb-3 sm:text-4xl">{post.titulo}</h1>
-        <p className="text-lg text-gray-400 mb-4">{post.descricao}</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3 sm:text-4xl">{post.titulo}</h1>
+        <p className="text-lg text-gray-700 mb-4">{post.descricao}</p>
 
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-800">
-            <User size={14} className="text-gray-400" />
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-100">
+            <User size={14} className="text-gray-600" />
           </div>
-          <span className="text-sm text-gray-500">Lucas Ferrari · @lucasferrari.pro</span>
+          <span className="text-sm text-gray-600">Lucas Ferrari · @lucasferrari.pro</span>
         </div>
       </div>
 
       {/* Copy Checklist Button */}
       <button
         onClick={handleCopyChecklist}
-        className="flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-800 px-5 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-700 hover:text-white mb-10"
+        className="flex items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-200 hover:text-gray-900 mb-10"
       >
         {copied ? (
           <>
@@ -109,31 +109,31 @@ export default function PostPage() {
       </button>
 
       {/* Content */}
-      <div className="rounded-xl border border-gray-800/60 bg-gray-900/50 p-8 prose prose-invert prose-lg max-w-none">
+      <div className="rounded-xl border border-gray-200 bg-white p-8 prose prose-lg max-w-none">
         <ReactMarkdown
           components={{
-            h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-white mt-8 mb-4" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-gray-200 mt-6 mb-3" {...props} />,
-            h4: ({ node, ...props }) => <h4 className="text-lg font-semibold text-gray-300 mt-4 mb-2" {...props} />,
-            p: ({ node, ...props }) => <p className="text-gray-400 mb-4 leading-relaxed" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3" {...props} />,
+            h4: ({ node, ...props }) => <h4 className="text-lg font-semibold text-gray-700 mt-4 mb-2" {...props} />,
+            p: ({ node, ...props }) => <p className="text-gray-700 mb-4 leading-relaxed" {...props} />,
             ul: ({ node, ...props }) => <ul className="list-none space-y-3 mb-6" {...props} />,
             li: ({ node, ...props }) => (
               <li className="flex items-start gap-3">
-                <span className="text-gray-500 font-semibold mt-1">•</span>
-                <span className="text-gray-400" {...props} />
+                <span className="text-gray-600 font-semibold mt-1">•</span>
+                <span className="text-gray-700" {...props} />
               </li>
             ),
-            strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
-            em: ({ node, ...props }) => <em className="italic text-gray-500" {...props} />,
+            strong: ({ node, ...props }) => <strong className="font-bold text-gray-900" {...props} />,
+            em: ({ node, ...props }) => <em className="italic text-gray-600" {...props} />,
             table: ({ node, ...props }) => (
               <div className="overflow-x-auto mb-6">
                 <table className="w-full text-sm text-left border-collapse" {...props} />
               </div>
             ),
-            thead: ({ node, ...props }) => <thead className="border-b border-gray-700" {...props} />,
-            th: ({ node, ...props }) => <th className="py-2 px-3 text-gray-300 font-semibold" {...props} />,
-            td: ({ node, ...props }) => <td className="py-2 px-3 text-gray-400 border-b border-gray-800/60" {...props} />,
-            code: ({ node, ...props }) => <code className="bg-gray-800 text-gray-300 px-1.5 py-0.5 rounded text-sm" {...props} />,
+            thead: ({ node, ...props }) => <thead className="border-b border-gray-300" {...props} />,
+            th: ({ node, ...props }) => <th className="py-2 px-3 text-gray-900 font-semibold" {...props} />,
+            td: ({ node, ...props }) => <td className="py-2 px-3 text-gray-700 border-b border-gray-200" {...props} />,
+            code: ({ node, ...props }) => <code className="bg-gray-100 text-gray-900 px-1.5 py-0.5 rounded text-sm" {...props} />,
           }}
         >
           {post.conteudo}
@@ -141,19 +141,19 @@ export default function PostPage() {
       </div>
 
       {/* Order Bumps */}
-      <div className="mt-12 rounded-xl border border-gray-800/60 bg-gray-900/50 p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Acelere seus resultados</h3>
+      <div className="mt-12 rounded-xl border border-gray-200 bg-white p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Acelere seus resultados</h3>
         <div className="grid gap-4 sm:grid-cols-3">
           {orderBumps.map((bump, idx) => (
             <a
               key={idx}
               href={checkoutUrl}
-              className="flex items-center gap-3 rounded-lg border border-gray-800/60 bg-gray-800/50 px-4 py-3 transition hover:border-gray-700 hover:bg-gray-800"
+              className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-300 hover:bg-gray-100"
             >
-              <span className="text-gray-400">{bump.icon}</span>
+              <span className="text-gray-900">{bump.icon}</span>
               <div className="flex-1">
-                <p className="text-sm font-medium text-white">{bump.titulo}</p>
-                <p className="text-xs font-bold text-gray-400">{bump.precoFinal}</p>
+                <p className="text-sm font-medium text-gray-900">{bump.titulo}</p>
+                <p className="text-xs font-bold text-gray-700">{bump.precoFinal}</p>
               </div>
             </a>
           ))}
@@ -172,7 +172,7 @@ export default function PostPage() {
               {prevPost ? (
                 <Link
                   href={`/membros/posts/${prevPost.slug}`}
-                  className="flex items-center gap-2 rounded-lg border border-gray-800/60 px-5 py-3 text-sm font-medium text-gray-400 transition hover:border-gray-700 hover:text-white"
+                  className="flex items-center gap-2 rounded-lg border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:border-gray-400 hover:text-gray-900"
                 >
                   ← Anterior
                 </Link>
@@ -183,7 +183,7 @@ export default function PostPage() {
               {nextPost ? (
                 <Link
                   href={`/membros/posts/${nextPost.slug}`}
-                  className="flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-gray-950 transition hover:bg-gray-200"
+                  className="flex items-center gap-2 rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
                 >
                   Próximo →
                 </Link>

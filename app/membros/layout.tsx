@@ -33,7 +33,7 @@ export default function MembrosLayout({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-950 text-gray-400">
+      <div className="flex items-center justify-center min-h-screen bg-white text-gray-600">
         Carregando...
       </div>
     )
@@ -42,18 +42,18 @@ export default function MembrosLayout({
   if (!isAuthenticated) return null
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
-      <header className="sticky top-0 z-50 border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
+    <div className="min-h-screen bg-white text-gray-900">
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Settings size={20} className="text-gray-400" />
+            <Settings size={20} className="text-gray-600" />
             <span className="text-lg font-semibold tracking-tight">Seleção IA</span>
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-sm text-gray-500">{userEmail}</span>
+            <span className="text-sm text-gray-600">{userEmail}</span>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-sm text-gray-500 hover:text-red-400 transition"
+              className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600 transition"
             >
               <LogOut size={16} />
               Sair

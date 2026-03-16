@@ -124,19 +124,19 @@ export default function Home() {
   const checkoutUrl = process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL || '#'
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <Settings size={20} className="text-gray-400" />
-            <span className="text-lg font-semibold tracking-tight text-white">
+            <Settings size={20} className="text-gray-600" />
+            <span className="text-lg font-semibold tracking-tight text-gray-900">
               Seleção IA
             </span>
           </div>
           <a
             href="/login"
-            className="rounded-lg bg-white px-5 py-2 text-sm font-semibold text-gray-950 transition hover:bg-gray-200"
+            className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
             Acessar
           </a>
@@ -146,25 +146,25 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-24">
         <div className="max-w-3xl">
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-gray-500">
+          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-gray-600">
             Hub de conteúdo por Lucas Ferrari
           </p>
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
             IA aplicada a negócio, automação e resultado real.
           </h1>
-          <p className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-400">
+          <p className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-700">
             Checklists, ferramentas e estruturas que eu estou testando e usando
             para escalar negócios com IA.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <a
               href={checkoutUrl}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-4 text-base font-semibold text-gray-950 transition hover:bg-gray-200"
+              className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-8 py-4 text-base font-semibold text-white transition hover:bg-gray-800"
             >
               Quero acesso — R$ 47
               <ArrowRight size={18} />
             </a>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-600">
               Acesso vitalício · Sem assinatura
             </span>
           </div>
@@ -173,16 +173,16 @@ export default function Home() {
 
       {/* Divider */}
       <div className="mx-auto max-w-6xl px-4">
-        <div className="border-t border-gray-800/60" />
+        <div className="border-t border-gray-200" />
       </div>
 
       {/* Conteúdos Exclusivos */}
       <section className="mx-auto max-w-6xl px-4 py-20" id="modulos">
         <div className="mb-12">
-          <h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
             Conteúdos exclusivos
           </h2>
-          <p className="text-gray-500">
+          <p className="text-gray-600">
             10 módulos práticos para aplicar IA no seu negócio hoje.
           </p>
         </div>
@@ -191,11 +191,11 @@ export default function Home() {
           {modulos.map((modulo, idx) => (
             <div
               key={idx}
-              className="group flex flex-col justify-between rounded-xl border border-gray-800/60 bg-gray-900/50 p-6 transition hover:border-gray-700 hover:bg-gray-900"
+              className="group flex flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:bg-gray-50"
             >
               <div>
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="rounded-md bg-gray-800 px-2.5 py-1 text-xs font-medium text-gray-400">
+                  <span className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
                     Módulo
                   </span>
                   <span className="flex items-center gap-1 text-xs text-gray-600">
@@ -203,22 +203,22 @@ export default function Home() {
                     {modulo.tempo}
                   </span>
                 </div>
-                <div className="mb-3 text-gray-400">{modulo.icon}</div>
-                <h3 className="mb-2 text-base font-semibold text-white">
+                <div className="mb-3 text-gray-900">{modulo.icon}</div>
+                <h3 className="mb-2 text-base font-semibold text-gray-900">
                   {modulo.titulo}
                 </h3>
-                <p className="mb-6 text-sm leading-relaxed text-gray-500">
+                <p className="mb-6 text-sm leading-relaxed text-gray-700">
                   {modulo.descricao}
                 </p>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800">
-                    <User size={12} className="text-gray-400" />
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100">
+                    <User size={12} className="text-gray-600" />
                   </div>
-                  <span className="text-xs text-gray-500">Lucas Ferrari</span>
+                  <span className="text-xs text-gray-600">Lucas Ferrari</span>
                 </div>
-                <span className="text-xs font-medium text-gray-500 transition group-hover:text-white">
+                <span className="text-xs font-medium text-gray-600 transition group-hover:text-gray-900">
                   Ver módulo →
                 </span>
               </div>
@@ -229,31 +229,31 @@ export default function Home() {
 
       {/* Divider */}
       <div className="mx-auto max-w-6xl px-4">
-        <div className="border-t border-gray-800/60" />
+        <div className="border-t border-gray-200" />
       </div>
 
       {/* Quem é Lucas Ferrari */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-8 text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="mb-8 text-2xl font-bold text-gray-900 sm:text-3xl">
             Quem é Lucas Ferrari
           </h2>
-          <div className="rounded-xl border border-gray-800/60 bg-gray-900/50 p-8">
+          <div className="rounded-xl border border-gray-200 bg-white p-8">
             <div className="mb-6 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-800">
-                <User size={28} className="text-gray-400" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+                <User size={28} className="text-gray-600" />
               </div>
               <div>
-                <p className="font-semibold text-white">Lucas Ferrari</p>
-                <p className="text-sm text-gray-500">@lucasferrari.pro</p>
+                <p className="font-semibold text-gray-900">Lucas Ferrari</p>
+                <p className="text-sm text-gray-600">@lucasferrari.pro</p>
               </div>
             </div>
-            <p className="mb-4 leading-relaxed text-gray-400">
+            <p className="mb-4 leading-relaxed text-gray-700">
               Empreendedor digital focado em IA aplicada a negócios. Testo
               ferramentas, monto automações e documento tudo o que funciona de
               verdade para escalar operações com inteligência artificial.
             </p>
-            <p className="leading-relaxed text-gray-400">
+            <p className="leading-relaxed text-gray-700">
               Não vendo teoria. Compartilho o que estou usando agora — as
               ferramentas, os fluxos, os erros e os resultados reais. Se
               funciona, entra no hub. Se não funciona, descarto.
@@ -264,16 +264,16 @@ export default function Home() {
 
       {/* Divider */}
       <div className="mx-auto max-w-6xl px-4">
-        <div className="border-t border-gray-800/60" />
+        <div className="border-t border-gray-200" />
       </div>
 
       {/* Order Bumps */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="mb-12">
-          <h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
             Acelere seus resultados
           </h2>
-          <p className="text-gray-500">
+          <p className="text-gray-600">
             Produtos complementares com condição especial para membros.
           </p>
         </div>
@@ -282,28 +282,28 @@ export default function Home() {
           {orderBumps.map((bump, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-between rounded-xl border border-gray-800/60 bg-gray-900/50 p-6 transition hover:border-gray-700"
+              className="flex flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 transition hover:border-gray-300"
             >
               <div>
-                <div className="mb-4 text-gray-400">{bump.icon}</div>
-                <h3 className="mb-3 text-lg font-semibold text-white">
+                <div className="mb-4 text-gray-900">{bump.icon}</div>
+                <h3 className="mb-3 text-lg font-semibold text-gray-900">
                   {bump.titulo}
                 </h3>
-                <p className="mb-6 text-sm leading-relaxed text-gray-500">
+                <p className="mb-6 text-sm leading-relaxed text-gray-700">
                   {bump.descricao}
                 </p>
                 <div className="mb-6 flex items-baseline gap-3">
-                  <span className="text-sm text-gray-600 line-through">
+                  <span className="text-sm text-gray-500 line-through">
                     {bump.precoOriginal}
                   </span>
-                  <span className="text-2xl font-bold text-white">
+                  <span className="text-2xl font-bold text-gray-900">
                     {bump.precoFinal}
                   </span>
                 </div>
               </div>
               <a
                 href={checkoutUrl}
-                className="block rounded-lg bg-white py-3 text-center text-sm font-semibold text-gray-950 transition hover:bg-gray-200"
+                className="block rounded-lg bg-gray-900 py-3 text-center text-sm font-semibold text-white transition hover:bg-gray-800"
               >
                 QUERO AGORA
               </a>
@@ -314,16 +314,16 @@ export default function Home() {
 
       {/* Divider */}
       <div className="mx-auto max-w-6xl px-4">
-        <div className="border-t border-gray-800/60" />
+        <div className="border-t border-gray-200" />
       </div>
 
       {/* Links Úteis */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="mb-12">
-          <h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
             Links úteis
           </h2>
-          <p className="text-gray-500">Comunidade e canais de contato.</p>
+          <p className="text-gray-600">Comunidade e canais de contato.</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -347,7 +347,7 @@ export default function Home() {
             <a
               key={idx}
               href={link.href}
-              className="flex items-center gap-3 rounded-xl border border-gray-800/60 bg-gray-900/50 px-5 py-4 text-sm text-gray-400 transition hover:border-gray-700 hover:text-white"
+              className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-4 text-sm text-gray-700 transition hover:border-gray-300 hover:text-gray-900"
             >
               {link.icon}
               {link.label}
@@ -357,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800/60 bg-gray-950">
+      <footer className="border-t border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2">
@@ -369,10 +369,10 @@ export default function Home() {
               reservados.
             </p>
             <div className="flex gap-4 text-xs text-gray-600">
-              <a href="#" className="transition hover:text-gray-400">
+              <a href="#" className="transition hover:text-gray-900">
                 Privacidade
               </a>
-              <a href="#" className="transition hover:text-gray-400">
+              <a href="#" className="transition hover:text-gray-900">
                 Termos
               </a>
             </div>
