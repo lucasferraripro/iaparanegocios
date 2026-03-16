@@ -61,10 +61,10 @@ async function getToken() {
     return cachedToken
   }
   const { status, body } = await rawRequest('GET', '/token', { 'X_CONSUMER_KEY': API_KEY })
-  if (status !== 200 || !body.TOKEN) {
+  if (status !== 200 || !body.token) {
     throw new Error(`Falha ao obter token: ${JSON.stringify(body)}`)
   }
-  cachedToken = body.TOKEN
+  cachedToken = body.token
   tokenExpiry = body.expire
   return cachedToken
 }

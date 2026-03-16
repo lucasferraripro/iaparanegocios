@@ -18,7 +18,7 @@ async function getToken(): Promise<string> {
   const { data } = await axios.get(`${BASE_URL}/token`, {
     headers: { 'X_CONSUMER_KEY': getConsumerKey(), 'Content-Type': 'application/json' },
   })
-  cachedToken = data.TOKEN
+  cachedToken = data.token
   tokenExpiry = new Date(data.expire)
   return cachedToken!
 }
