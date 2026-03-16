@@ -36,9 +36,9 @@ export default function PostPage() {
 
   if (!post) {
     return (
-      <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Módulo não encontrado</h1>
-        <Link href="/membros" className="text-gray-700 hover:text-gray-900 transition">
+      <div className="text-center py-20 bg-[#020617] min-h-screen">
+        <h1 className="text-3xl font-black text-white mb-6 tracking-tighter">Módulo não encontrado</h1>
+        <Link href="/membros" className="text-blue-500 hover:text-blue-400 font-bold uppercase tracking-widest text-xs transition">
           ← Voltar para o hub
         </Link>
       </div>
@@ -58,142 +58,151 @@ export default function PostPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <Link
-          href="/membros"
-          className="flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium mb-6 transition"
-        >
-          <ArrowLeft size={18} />
-          Voltar para o hub
-        </Link>
+    <div className="min-h-screen bg-[#020617] text-[#f8fafc] pb-24">
+      <div className="max-w-4xl mx-auto px-6 pt-12">
+        {/* Header */}
+        <div className="mb-12">
+          <Link
+            href="/membros"
+            className="group inline-flex items-center gap-2 text-slate-500 hover:text-white font-bold uppercase tracking-widest text-[10px] mb-10 transition-colors"
+          >
+            <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
+            Voltar para o hub
+          </Link>
 
-        <div className="flex items-center gap-3 mb-4">
-          <span className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
-            {post.tag || 'Módulo'}
-          </span>
-          <span className="flex items-center gap-1 text-xs text-gray-600">
-            <Clock size={12} />
-            {post.tempo_leitura || '5 min'}
-          </span>
-        </div>
-
-        <h1 className="text-3xl font-bold text-gray-900 mb-3 sm:text-4xl">{post.titulo}</h1>
-        <p className="text-lg text-gray-700 mb-4">{post.descricao}</p>
-
-        <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-100">
-            <User size={14} className="text-gray-600" />
+          <div className="flex items-center gap-3 mb-6">
+            <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-400">
+              {post.tag || 'Módulo'}
+            </span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 border-l border-white/10 pl-3">
+              <Clock size={12} />
+              {post.tempo_leitura || '5 min'}
+            </span>
           </div>
-          <span className="text-sm text-gray-600">Lucas Ferrari · @lucasferrari.pro</span>
+
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter leading-tight">{post.titulo}</h1>
+          <p className="text-xl text-slate-400 mb-8 font-medium leading-relaxed">{post.descricao}</p>
+
+          <div className="flex items-center gap-3 border-t border-white/5 pt-8">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 shadow-xl">
+              <User size={18} className="text-slate-400" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">Lucas Ferrari</p>
+              <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest text-blue-500/80">@lucasferrari.pro</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Copy Checklist Button */}
-      <button
-        onClick={handleCopyChecklist}
-        className="flex items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-200 hover:text-gray-900 mb-10"
-      >
-        {copied ? (
-          <>
-            <Check size={16} />
-            Copiado!
-          </>
-        ) : (
-          <>
-            <Copy size={16} />
-            Copiar Checklist
-          </>
-        )}
-      </button>
-
-      {/* Content */}
-      <div className="rounded-xl border border-gray-200 bg-white p-8 prose prose-lg max-w-none">
-        <ReactMarkdown
-          components={{
-            h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3" {...props} />,
-            h4: ({ node, ...props }) => <h4 className="text-lg font-semibold text-gray-700 mt-4 mb-2" {...props} />,
-            p: ({ node, ...props }) => <p className="text-gray-700 mb-4 leading-relaxed" {...props} />,
-            ul: ({ node, ...props }) => <ul className="list-none space-y-3 mb-6" {...props} />,
-            li: ({ node, ...props }) => (
-              <li className="flex items-start gap-3">
-                <span className="text-gray-600 font-semibold mt-1">•</span>
-                <span className="text-gray-700" {...props} />
-              </li>
-            ),
-            strong: ({ node, ...props }) => <strong className="font-bold text-gray-900" {...props} />,
-            em: ({ node, ...props }) => <em className="italic text-gray-600" {...props} />,
-            table: ({ node, ...props }) => (
-              <div className="overflow-x-auto mb-6">
-                <table className="w-full text-sm text-left border-collapse" {...props} />
-              </div>
-            ),
-            thead: ({ node, ...props }) => <thead className="border-b border-gray-300" {...props} />,
-            th: ({ node, ...props }) => <th className="py-2 px-3 text-gray-900 font-semibold" {...props} />,
-            td: ({ node, ...props }) => <td className="py-2 px-3 text-gray-700 border-b border-gray-200" {...props} />,
-            code: ({ node, ...props }) => <code className="bg-gray-100 text-gray-900 px-1.5 py-0.5 rounded text-sm" {...props} />,
-          }}
+        {/* Copy Checklist Button */}
+        <button
+          onClick={handleCopyChecklist}
+          className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-white/[0.07] hover:border-blue-500/30 mb-16 glass shadow-2xl"
         >
-          {post.conteudo}
-        </ReactMarkdown>
-      </div>
-
-      {/* Order Bumps */}
-      <div className="mt-12 rounded-xl border border-gray-200 bg-white p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Acelere seus resultados</h3>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {orderBumps.map((bump, idx) => (
-            <a
-              key={idx}
-              href={checkoutUrl}
-              className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-300 hover:bg-gray-100"
-            >
-              <span className="text-gray-900">{bump.icon}</span>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{bump.titulo}</p>
-                <p className="text-xs font-bold text-gray-700">{bump.precoFinal}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="mt-10 flex justify-between">
-        {(() => {
-          const currentIndex = posts.findIndex(p => p.id === post.id)
-          const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null
-          const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null
-
-          return (
+          {copied ? (
             <>
-              {prevPost ? (
-                <Link
-                  href={`/membros/posts/${prevPost.slug}`}
-                  className="flex items-center gap-2 rounded-lg border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:border-gray-400 hover:text-gray-900"
-                >
-                  ← Anterior
-                </Link>
-              ) : (
-                <div />
-              )}
-
-              {nextPost ? (
-                <Link
-                  href={`/membros/posts/${nextPost.slug}`}
-                  className="flex items-center gap-2 rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
-                >
-                  Próximo →
-                </Link>
-              ) : (
-                <div />
-              )}
+              <Check size={18} className="text-emerald-400" />
+              Copiado com Sucesso!
             </>
-          )
-        })()}
+          ) : (
+            <>
+              <Copy size={18} className="text-blue-400 group-hover:scale-110 transition-transform" />
+              Copiar Checklist para Implementação
+            </>
+          )}
+        </button>
+
+        {/* Content */}
+        <div className="rounded-[2.5rem] border border-white/5 bg-white/[0.02] p-8 md:p-12 glass shadow-3xl overflow-hidden mb-16">
+          <ReactMarkdown
+            components={{
+              h2: ({ node, ...props }) => <h2 className="text-2xl font-black text-white mt-12 mb-6 tracking-tight border-b border-white/5 pb-4" {...props} />,
+              h3: ({ node, ...props }) => <h3 className="text-xl font-bold text-blue-400 mt-10 mb-4 tracking-tight" {...props} />,
+              h4: ({ node, ...props }) => <h4 className="text-lg font-bold text-slate-200 mt-8 mb-3" {...props} />,
+              p: ({ node, ...props }) => <p className="text-slate-400 mb-6 leading-relaxed font-medium text-base md:text-lg" {...props} />,
+              ul: ({ node, ...props }) => <ul className="space-y-4 mb-8" {...props} />,
+              li: ({ node, ...props }) => (
+                <li className="flex items-start gap-4 group">
+                  <div className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-500/50 group-hover:bg-blue-400 transition-colors" />
+                  <span className="text-slate-300 font-medium leading-relaxed" {...props} />
+                </li>
+              ),
+              strong: ({ node, ...props }) => <strong className="font-bold text-white decoration-blue-500/30 underline underline-offset-4" {...props} />,
+              em: ({ node, ...props }) => <em className="italic text-slate-500" {...props} />,
+              table: ({ node, ...props }) => (
+                <div className="overflow-x-auto my-10 rounded-2xl border border-white/10 bg-black/20 p-1">
+                  <table className="w-full text-sm text-left border-collapse" {...props} />
+                </div>
+              ),
+              thead: ({ node, ...props }) => <thead className="bg-white/5" {...props} />,
+              th: ({ node, ...props }) => <th className="py-4 px-6 text-[10px] font-black uppercase tracking-widest text-slate-500 border-b border-white/10" {...props} />,
+              td: ({ node, ...props }) => <td className="py-4 px-6 text-slate-400 font-medium border-b border-white/5" {...props} />,
+              code: ({ node, ...props }) => <code className="bg-blue-500/10 text-blue-300 px-2 py-0.5 rounded-md font-mono text-sm border border-blue-500/20" {...props} />,
+            }}
+          >
+            {post.conteudo}
+          </ReactMarkdown>
+        </div>
+
+        {/* Order Bumps */}
+        <div className="mt-24 rounded-[2.5rem] border border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent p-8 md:p-12 glass">
+          <h3 className="text-xl font-black text-white mb-8 italic underline decoration-blue-500/30">Arsenal de Elite</h3>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {orderBumps.map((bump, idx) => (
+              <a
+                key={idx}
+                href={checkoutUrl}
+                className="group flex items-center gap-4 rounded-2xl border border-white/5 bg-white/[0.02] px-6 py-5 transition-all hover:bg-white/[0.08] hover:border-blue-500/30"
+              >
+                <div className="text-blue-400 bg-blue-500/10 p-2 rounded-xl border border-blue-500/10 transition-transform group-hover:scale-110">
+                  {bump.icon}
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] font-black uppercase tracking-tight text-white leading-tight mb-1">{bump.titulo}</p>
+                  <p className="text-xs font-black text-blue-500">{bump.precoFinal}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="mt-20 flex justify-between items-center border-t border-white/5 pt-12">
+          {(() => {
+            const currentIndex = posts.findIndex(p => p.id === post.id)
+            const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null
+            const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null
+
+            return (
+              <>
+                {prevPost ? (
+                  <Link
+                    href={`/membros/posts/${prevPost.slug}`}
+                    className="flex items-center gap-3 rounded-xl border border-white/10 px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400 transition-all hover:bg-white/5 hover:text-white"
+                  >
+                    ← Anterior
+                  </Link>
+                ) : (
+                  <div />
+                )}
+
+                {nextPost ? (
+                  <Link
+                    href={`/membros/posts/${nextPost.slug}`}
+                    className="flex items-center gap-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-4 text-[10px] font-black uppercase tracking-widest text-white shadow-xl shadow-blue-500/20 transition-all hover:to-blue-400 hover:scale-105 active:scale-95"
+                  >
+                    Próximo Módulo →
+                  </Link>
+                ) : (
+                  <div />
+                )}
+              </>
+            )
+          })()}
+        </div>
       </div>
     </div>
+  )
+}
   )
 }
