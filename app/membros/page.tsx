@@ -1,153 +1,178 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Clock, User, Bot, Wrench, Video } from 'lucide-react'
+import { 
+  LogOut, 
+  Search, 
+  Clock, 
+  ChevronRight, 
+  CheckCircle,
+  PlayCircle,
+  TrendingUp,
+  Settings,
+  ShieldCheck
+} from 'lucide-react'
 import posts from '@/content/posts.json'
 
 export default function MembrosPage() {
-  const checkoutUrl = process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL || '#'
+  const [searchTerm, setSearchTerm] = useState('')
+  const [userEmail, setUserEmail] = useState('')
 
-  const orderBumps = [
-    {
-      icon: <Bot size={24} />,
-      titulo: 'Automação de IA + Agente SDR no seu DM',
-      descricao:
-        'Um agente de IA treinado para qualificar e converter leads direto no seu Instagram. Inclui template de automação pronto para usar.',
-      precoOriginal: 'R$ 197',
-      precoFinal: 'R$ 67',
-    },
-    {
-      icon: <Wrench size={24} />,
-      titulo: 'Stack de IA — O que eu uso hoje',
-      descricao:
-        'Lista completa das ferramentas de IA que uso no dia a dia, com tutorial de configuração e integração entre elas.',
-      precoOriginal: 'R$ 197',
-      precoFinal: 'R$ 97',
-    },
-    {
-      icon: <Video size={24} />,
-      titulo: 'Fluxo de Trabalho — Vídeo com IA em escala',
-      descricao:
-        'Processo completo para produzir vídeos com IA: roteiro, edição, legendas e publicação em escala.',
-      precoOriginal: 'R$ 247',
-      precoFinal: 'R$ 127',
-    },
-  ]
+  useEffect(() => {
+    const user = localStorage.getItem('user_email')
+    if (user) setUserEmail(user)
+  }, [])
+
+  const filteredPosts = posts.filter(post =>
+    post.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.tag.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const handleLogout = () => {
+    localStorage.removeItem('user_email')
+    window.location.href = '/login'
+  }
+
+  const advancedPosts = filteredPosts.filter(p => p.tag === 'AVANÇADO')
+  const basePosts = filteredPosts.filter(p => p.tag !== 'AVANÇADO')
 
   return (
-    <div className="min-h-screen bg-[#020617] text-[#f8fafc] p-6 lg:p-12">
-      {/* Hero */}
-      <div className="mb-12">
-        <h2 className="text-4xl font-black text-white mb-4 tracking-tighter sm:text-5xl">
-          Bem-vindo ao <span className="text-blue-500 italic">Hub Seleção IA</span>
-        </h2>
-        <p className="text-lg text-slate-400 font-medium">
-          10 módulos práticos de IA para implementar no seu negócio. Cada módulo tem checklist passo-a-passo.
-        </p>
-      </div>
-
-      {/* Stats */}
-      <div className="grid md:grid-cols-3 gap-6 mb-16">
-        <div className="rounded-3xl border border-white/5 bg-white/[0.03] p-8 glass">
-          <div className="text-4xl font-black text-white mb-1">{posts.length}</div>
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Módulos de conteúdo</p>
-        </div>
-        <div className="rounded-3xl border border-white/5 bg-white/[0.03] p-8 glass">
-          <div className="text-4xl font-black text-white mb-1">∞</div>
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Acesso vitalício</p>
-        </div>
-        <div className="rounded-3xl border border-white/5 bg-white/[0.03] p-8 glass">
-          <div className="text-4xl font-black text-white mb-1">24/7</div>
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Sempre disponível</p>
-        </div>
-      </div>
-
-      {/* Posts Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post: any) => (
-          <Link
-            key={post.id}
-            href={`/membros/posts/${post.slug}`}
-            className="group flex flex-col justify-between rounded-3xl border border-white/5 bg-white/[0.03] p-8 transition-all hover:border-blue-500/50 hover:bg-white/[0.05] glass"
-          >
-            <div>
-              <div className="mb-6 flex items-center justify-between">
-                <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-400">
-                  {post.tag || 'Módulo'}
-                </span>
-                <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500">
-                  <Clock size={12} />
-                  {post.tempo_leitura || '5 min'}
-                </span>
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-blue-100">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <Link href="/membros" className="flex items-center gap-2 group">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                <ShieldCheck size={18} />
               </div>
-              <h3 className="mb-3 text-xl font-bold text-white group-hover:text-blue-400 transition-colors tracking-tight">
-                {post.titulo}
-              </h3>
-              <p className="mb-8 text-sm leading-relaxed text-slate-400 font-medium">
-                {post.descricao}
-              </p>
-            </div>
-            <div className="flex items-center justify-between border-t border-white/5 pt-6">
-              <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 border border-white/10">
-                  <User size={14} className="text-slate-400" />
-                </div>
-                <span className="text-xs font-bold text-slate-500">Lucas Ferrari</span>
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500 transition-transform group-hover:translate-x-1">
-                Ver módulo →
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
+              <span className="text-lg font-black tracking-tight text-slate-900">SELEÇÃO <span className="text-blue-600">IA</span></span>
+            </Link>
+          </div>
 
-      {/* Order Bumps */}
-      <div className="mt-32">
-        <div className="mb-12">
-          <h2 className="text-3xl font-black text-white mb-3 italic underline decoration-blue-500/30 tracking-tight">
-            Arsenal de Elite
-          </h2>
-          <p className="text-slate-500 font-medium font-sm">
-            Produtos complementares com condição especial para membros.
-          </p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3">
-          {orderBumps.map((bump, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col justify-between rounded-[2rem] border border-white/5 bg-white/[0.02] p-8 transition-all hover:bg-white/[0.04] glass"
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex flex-col items-end">
+              <span className="text-xs font-bold text-slate-900 leading-none">{userEmail?.split('@')[0]}</span>
+              <span className="text-[10px] font-medium text-slate-400 capitalize">Assinante Premium</span>
+            </div>
+            <button 
+              onClick={handleLogout}
+              className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors rounded-lg"
+              title="Sair"
             >
-              <div>
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400 shadow-[inset_0_0_20px_rgba(37,99,235,0.1)] border border-blue-500/10">
-                  {bump.icon}
-                </div>
-                <h3 className="mb-4 text-xl font-black text-white leading-tight">
-                  {bump.titulo}
-                </h3>
-                <p className="mb-8 text-sm leading-relaxed text-slate-400 font-medium">
-                  {bump.descricao}
-                </p>
-                <div className="mb-8 flex flex-col gap-1">
-                  <span className="text-xs font-bold text-slate-600 line-through">
-                    {bump.precoOriginal}
-                  </span>
-                  <span className="text-3xl font-black text-white">
-                    {bump.precoFinal}
-                  </span>
-                </div>
-              </div>
-              <a
-                href={checkoutUrl}
-                className="block rounded-xl bg-white p-4 text-center text-sm font-black text-black transition-all hover:bg-blue-500 hover:text-white active:scale-95"
-              >
-                ADICIONAR AGORA
-              </a>
-            </div>
-          ))}
+              <LogOut size={20} />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        {/* Welcome Section */}
+        <div className="mb-12">
+          <h1 className="text-3xl font-black text-slate-900 mb-2">Bem-vindo ao Hub, {userEmail?.split('@')[0]}!</h1>
+          <p className="text-slate-500 font-medium">Selecione um módulo para iniciar sua implementação prática.</p>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-12 max-w-md">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+          <input 
+            type="text"
+            placeholder="Buscar aula ou ferramenta..."
+            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-sm font-medium"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Advanced Section (New Content) */}
+        {advancedPosts.length > 0 && (
+          <section className="mb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
+                <TrendingUp size={20} />
+              </div>
+              <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Protocolos Avançados SXS</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {advancedPosts.map((post) => (
+                <PostCard key={post.id} post={post} featured={true} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Base Section (Original Content) */}
+        <section>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="p-2 bg-slate-100 text-slate-600 rounded-lg">
+              <PlayCircle size={20} />
+            </div>
+            <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Aulas Base</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {basePosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+      </main>
+
+      {/* Footer simple */}
+      <footer className="border-t border-slate-200 py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Seleção IA © 2026 • Suporte Prioritário</p>
+        </div>
+      </footer>
     </div>
+  )
+}
+
+function PostCard({ post, featured = false }: { post: any, featured?: boolean }) {
+  return (
+    <Link href={`/membros/posts/${post.slug}`}>
+      <div className={`
+        group relative h-full bg-white border rounded-2xl p-6 transition-all hover:shadow-xl hover:-translate-y-1
+        ${featured ? 'border-blue-200 bg-blue-50/10' : 'border-slate-200'}
+      `}>
+        <div className="flex items-start justify-between mb-4">
+          <span className={`
+            px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest
+            ${featured ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'}
+          `}>
+            {post.tag}
+          </span>
+          <div className="text-slate-300 group-hover:text-blue-500 transition-colors">
+            <ChevronRight size={20} />
+          </div>
+        </div>
+
+        <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors capitalize">
+          {post.titulo}
+        </h3>
+        
+        <p className="text-sm text-slate-500 font-medium mb-6 line-clamp-2">
+          {post.descricao}
+        </p>
+
+        <div className="flex items-center gap-3 text-slate-400">
+          <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase">
+            <Clock size={12} />
+            {post.tempo_leitura}
+          </div>
+          <div className="h-1 w-1 rounded-full bg-slate-200" />
+          <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase text-emerald-500">
+            <CheckCircle size={12} />
+            Acesso Liberado
+          </div>
+        </div>
+
+        {featured && (
+          <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-500/10 rounded-2xl pointer-events-none transition-all" />
+        )}
+      </div>
+    </Link>
   )
 }
