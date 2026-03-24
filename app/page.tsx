@@ -1,557 +1,561 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Bot,
   BrainCircuit,
-  Clock,
-  ExternalLink,
-  Layers,
-  LayoutDashboard,
-  MessageSquare,
-  Rocket,
-  Search,
-  Settings,
-  ShoppingCart,
-  Sparkles,
-  Target,
-  User,
-  Users,
-  Video,
-  Wrench,
-  Zap,
-  ShieldCheck,
-  TrendingUp,
-  ChevronRight,
-  AlertCircle,
-  Trophy,
-  Star,
-  Quote,
   CheckCircle2,
   Lock,
+  Rocket,
+  ShieldCheck,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
+  AlertCircle,
+  MessageSquare,
   Cpu,
+  Play,
+  Trophy,
+  ChevronRight,
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: 'easeOut' },
 }
 
 const stagger = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  animate: { transition: { staggerChildren: 0.1 } },
+}
+
+// ─── Notification Toast ──────────────────────────────────────────────────────
+const nomes = [
+  { nome: 'Carla de Belo Horizonte', tempo: '2 minutos' },
+  { nome: 'Rodrigo de São Paulo', tempo: '5 minutos' },
+  { nome: 'Fernanda do Recife', tempo: '8 minutos' },
+  { nome: 'André de Curitiba', tempo: '11 minutos' },
+  { nome: 'Patricia de Fortaleza', tempo: '14 minutos' },
+]
+
+function NotificationToast() {
+  const [visible, setVisible] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const idx = useRef(0)
+
+  useEffect(() => {
+    const show = () => {
+      setCurrent(idx.current % nomes.length)
+      setVisible(true)
+      setTimeout(() => setVisible(false), 4000)
+      idx.current++
+    }
+    const timer = setTimeout(show, 3000)
+    const interval = setInterval(show, 12000)
+    return () => { clearTimeout(timer); clearInterval(interval) }
+  }, [])
+
+  if (!visible) return null
+  return (
+    <motion.div
+      initial={{ x: -300, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -300, opacity: 0 }}
+      className="fixed bottom-24 left-4 z-50 flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-900/95 px-5 py-4 shadow-2xl backdrop-blur-md md:bottom-10 md:left-6"
+    >
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+        <Users size={16} />
+      </div>
+      <div>
+        <p className="text-[11px] font-black text-white">{nomes[current].nome}</p>
+        <p className="text-[10px] text-slate-500">garantiu sua vaga há {nomes[current].tempo}</p>
+      </div>
+    </motion.div>
+  )
+}
+
+// ─── Lead Form ────────────────────────────────────────────────────────────────
+const WHATSAPP_GROUP_URL = process.env.NEXT_PUBLIC_WHATSAPP_GROUP_URL || 'https://wa.me/5511999999999?text=Quero+entrar+na+imersão'
+
+function LeadForm() {
+  const [nome, setNome] = useState('')
+  const [whats, setWhats] = useState('')
+  const [tel, setTel] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [done, setDone] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    // Simula envio (integrar webhook/API depois)
+    await new Promise(r => setTimeout(r, 1000))
+    setLoading(false)
+    setDone(true)
+    setTimeout(() => {
+      window.open(WHATSAPP_GROUP_URL, '_blank')
+    }, 800)
+  }
+
+  if (done) {
+    return (
+      <div className="flex flex-col items-center gap-4 py-8 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20">
+          <CheckCircle2 size={32} className="text-emerald-400" />
+        </div>
+        <p className="text-2xl font-black text-white">Perfeito! Abrindo o grupo agora...</p>
+        <p className="text-slate-400 text-sm">Você será direcionado para o grupo VIP em instantes.</p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md mx-auto">
+      <input
+        type="text"
+        placeholder="Seu nome completo"
+        value={nome}
+        onChange={e => setNome(e.target.value)}
+        required
+        className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium transition-all"
+      />
+      <input
+        type="tel"
+        placeholder="Seu WhatsApp (com DDD)"
+        value={whats}
+        onChange={e => setWhats(e.target.value)}
+        required
+        className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium transition-all"
+      />
+      <input
+        type="tel"
+        placeholder="Telefone (opcional)"
+        value={tel}
+        onChange={e => setTel(e.target.value)}
+        className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium transition-all"
+      />
+      <button
+        type="submit"
+        disabled={loading}
+        className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-700 to-blue-500 px-8 py-5 text-lg font-black text-white shadow-[0_0_50px_rgba(37,99,235,0.4)] transition-all hover:scale-[1.02] hover:shadow-blue-500/50 disabled:opacity-60 active:scale-95 border border-white/20"
+      >
+        {loading ? 'Enviando...' : 'QUERO ENTRAR NA IMERSÃO →'}
+      </button>
+      <p className="text-center text-[11px] text-slate-600 font-bold uppercase tracking-widest">
+        🔒 Seus dados estão seguros. Sem spam.
+      </p>
+    </form>
+  )
 }
 
 export default function Home() {
-  const [showStickyCta, setShowStickyCta] = useState(false)
-  
+  const [showSticky, setShowSticky] = useState(false)
+
   useEffect(() => {
-    const handleScroll = () => {
-      setShowStickyCta(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setShowSticky(window.scrollY > 500)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const modulos = [
-    {
-      icon: <Cpu size={24} className="text-blue-400" />,
-      titulo: 'Cérebro Central Agente-SXS',
-      descricao:
-        'A estrutura exata para treinar sua IA com seus dados e transformá-la no funcionário mais inteligente da empresa.',
-      tempo: 'Pronto p/ Uso',
-    },
-    {
-      icon: <Target size={24} className="text-blue-400" />,
-      titulo: 'Tráfego de Guerra (Meta Ads)',
-      descricao:
-        'O sistema de auto-otimização que reduz o CPL em até 70% e encontra os compradores prontos para pagar.',
-      tempo: 'Estratégico',
-    },
-    {
-      icon: <Bot size={24} className="text-blue-400" />,
-      titulo: 'Agente SDR High-Ticket',
-      descricao:
-        'O robô que aborda, qualifica e agenda vendas nas suas DMs. Trabalha 24h sem pedir comissão ou feriado.',
-      tempo: 'Ouro Puro',
-    },
-    {
-      icon: <Sparkles size={24} className="text-blue-400" />,
-      titulo: 'Fábrica de Conteúdo Viral',
-      descricao:
-        'Gere 30 dias de anúncios e reels em 15 minutos com clonagem de voz e avatares hiper-realistas.',
-      tempo: 'Escala',
-    },
-    {
-      icon: <ShoppingCart size={24} className="text-blue-400" />,
-      titulo: 'Funis Perpétuos Blindados',
-      descricao:
-        'Como construir páginas que não apenas informam, mas forçam o cliente a tomar uma decisão de compra imediata.',
-      tempo: 'Conversão',
-    },
-    {
-      icon: <BrainCircuit size={24} className="text-blue-400" />,
-      titulo: 'Multi-Agentes em Cascata',
-      descricao:
-        'Faça 5 IAs conversarem entre si para gerenciar todo o seu pós-venda e suporte sem interferência humana.',
-      tempo: 'Avançado',
-    },
-  ]
-
-  const orderBumps = [
-    {
-      icon: <Bot size={24} />,
-      titulo: 'Pipeline de Automação SDR',
-      descricao:
-        'O workflow completo para importar no Manychat/Vapi e começar a agendar hoje.',
-      precoOriginal: 'R$ 197',
-      precoFinal: 'R$ 67',
-    },
-    {
-      icon: <Wrench size={24} />,
-      titulo: 'OS de Negócios (Notion)',
-      descricao:
-        'A Central de Comando que eu uso para gerenciar 4 projetos simultâneos com apenas 2 agentes de IA.',
-      precoOriginal: 'R$ 197',
-      precoFinal: 'R$ 97',
-    },
-    {
-      icon: <Video size={24} />,
-      titulo: 'Masterclass: Vídeos Impossíveis',
-      descricao:
-        'A técnica proibida de vídeos virais que geram tráfego qualificado de graça 24h por dia.',
-      precoOriginal: 'R$ 247',
-      precoFinal: 'R$ 127',
-    },
+  const entregaveis = [
+    { num: '01', titulo: 'Raio-X do seu negócio com IA', desc: 'A IA analisa seus anúncios, suas campanhas e te mostra onde o dinheiro está escapando — em minutos.' },
+    { num: '02', titulo: 'Mapa de conteúdo que vende', desc: 'Roteiro completo de Reels, Stories e posts para atrair clientes que já querem comprar o que você vende.' },
+    { num: '03', titulo: 'Automação de atendimento no WhatsApp', desc: 'Nunca mais perca um cliente por demora no atendimento. Configure a IA para responder e qualificar em tempo real.' },
+    { num: '04', titulo: 'Campanha de anúncios pronta para publicar', desc: 'Sai da imersão com a próxima campanha estruturada: público, criativo e verba definidos pela IA com os seus dados.' },
+    { num: '05', titulo: 'Sua IA pessoal de negócios', desc: 'Uma IA treinada com o contexto do seu negócio para te dar estratégias todos os dias — sem depender de agência.' },
+    { num: '06', titulo: '2 dias ao vivo, com execução real', desc: 'Você executa comigo, na tela, com os dados do seu próprio negócio. Não é teoria — é resultado em tempo real.' },
   ]
 
   const depoimentos = [
-    {
-      nome: 'Ricardo M.',
-      cargo: 'Dono de Agência',
-      texto: 'O Agente SDR agendou 12 reuniões pra mim enquanto eu dormia. Recuperei os R$ 47 no primeiro lead.',
-      estrelas: 5,
-    },
-    {
-      nome: 'Julia F.',
-      cargo: 'Estrategista Digital',
-      texto: 'Saí do operacional de conteúdo em 3 dias. O pipeline de clonagem de voz é assustadoramente bom.',
-      estrelas: 5,
-    },
-    {
-      nome: 'Carlos T.',
-      cargo: 'Infoprodutor',
-      texto: 'O Protocolo SXS não é curso, é um manual de guerra. Direto, bruto e com ROI imediato.',
-      estrelas: 5,
-    },
+    { nome: 'Mariana S.', cargo: 'Empreendedora Digital', texto: 'Em 2 dias eu entendi o que estava errando nos meus anúncios. Reduzi o custo por lead em 60% na semana seguinte.' },
+    { nome: 'Felipe R.', cargo: 'Dono de Agência', texto: 'A IA encontrou R$ 12 mil desperdiçados nas minhas campanhas. Paguei R$ 147 e economizei mais de R$ 10 mil em 30 dias.' },
+    { nome: 'Tatiane L.', cargo: 'Vendedora Online', texto: 'Saí da imersão com meu atendimento automatizado. Hoje vendo sem precisar ficar colada no celular o dia inteiro.' },
   ]
 
-  const checkoutUrl = process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL || '#'
+  const CHECKOUT_URL = process.env.NEXT_PUBLIC_HOTMART_CHECKOUT_URL || WHATSAPP_GROUP_URL
 
   return (
-    <div className="min-h-screen bg-[#020617] text-foreground bg-mesh selection:bg-blue-500/30 overflow-x-hidden">
-      {/* Sticky Mobile CTA */}
-      <motion.div 
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-blue-500/30 overflow-x-hidden">
+      <NotificationToast />
+
+      {/* Sticky CTA Mobile */}
+      <motion.div
         initial={{ y: 100 }}
-        animate={{ y: showStickyCta ? 0 : 100 }}
-        className="fixed bottom-6 left-1/2 z-[100] w-[90%] -translate-x-1/2 md:hidden"
+        animate={{ y: showSticky ? 0 : 100 }}
+        className="fixed bottom-4 left-1/2 z-[100] w-[92%] -translate-x-1/2 md:hidden"
       >
-        <a 
-          href={checkoutUrl}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 p-5 text-lg font-black text-white shadow-[0_20px_50px_rgba(37,99,235,0.4)] border border-white/20 animate-pulse"
+        <a
+          href="#formulario"
+          className="flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-700 to-blue-500 p-5 text-base font-black text-white shadow-[0_20px_50px_rgba(37,99,235,0.45)] border border-white/20"
         >
-          ATIVAR MEU EXÉRCITO — R$ 47
-          <ArrowRight size={20} />
+          GARANTIR MINHA VAGA — R$ 147
+          <ArrowRight size={18} />
         </a>
       </motion.div>
 
-      {/* Urgent Banner */}
-      <div className="fixed top-0 z-[70] w-full bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 px-4 py-2 text-center shadow-lg border-b border-white/10">
+      {/* Banner urgência */}
+      <div className="fixed top-0 z-[70] w-full bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 px-4 py-2 text-center">
         <p className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white sm:text-xs">
-          <AlertCircle size={14} className="text-blue-300" />
-          Protocolo SXS Ativado: Lote 1 Finalizando com 14 Vagas Restantes (R$ 47)
+          <Zap size={12} className="text-blue-300 animate-pulse" />
+          🔥 IMERSÃO AO VIVO • Últimas vagas por R$ 147 • Não fica gravado
         </p>
       </div>
 
       {/* Header */}
-      <header className="fixed top-10 z-50 w-full glass px-6 py-4 border-b border-white/5">
+      <header className="fixed top-8 z-50 w-full px-6 py-4 backdrop-blur-md border-b border-white/5 bg-[#020617]/80">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <div className="flex items-center gap-3">
-             <div className="p-1.5 rounded-lg bg-blue-600/20 border border-blue-500/20">
-               <Cpu size={20} className="text-blue-400" />
-             </div>
-            <span className="text-lg font-black tracking-tighter italic text-white uppercase">Seleção IA</span>
+            <div className="p-1.5 rounded-lg bg-blue-600/20 border border-blue-500/20">
+              <Cpu size={20} className="text-blue-400" />
+            </div>
+            <span className="text-base font-black tracking-tighter uppercase italic text-white">Seleção IA</span>
           </div>
           <a
-            href={checkoutUrl}
-            className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all border border-white/10"
+            href="#formulario"
+            className="hidden md:flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-xs font-black text-white hover:bg-blue-500 transition-all"
           >
-            <Lock size={12} />
-            Portal de Membros
+            GARANTIR MINHA VAGA
+            <ArrowRight size={14} />
           </a>
         </div>
       </header>
 
-      {/* Hero: O Beco de Saída */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-48 md:pt-64">
-        <motion.div 
-          initial="initial"
-          animate="animate"
-          variants={stagger}
-          className="relative z-10 text-center"
-        >
+      {/* ─── HERO ──────────────────────────────────────────────────────────────── */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-44 md:pt-60 text-center">
+        <motion.div initial="initial" animate="animate" variants={stagger} className="relative z-10">
           <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-6 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-blue-400 mb-10 font-mono">
-              <Zap size={12} className="animate-pulse" />
-              Operação Blindada • 2026 Ready
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-blue-300 mb-8">
+              <Zap size={11} className="animate-pulse" />
+              Imersão ao vivo • Zoom • 2 dias
             </span>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             variants={fadeInUp}
-            className="mb-8 mx-auto max-w-5xl text-5xl font-black leading-[1] tracking-tighter sm:text-7xl lg:text-9xl bg-gradient-to-b from-white via-white to-slate-600 bg-clip-text text-transparent"
+            className="mb-6 mx-auto max-w-5xl text-4xl font-black leading-[1.05] tracking-tighter sm:text-6xl lg:text-8xl bg-gradient-to-b from-white via-white to-slate-500 bg-clip-text text-transparent"
           >
-            Aposente o Trabalho Manual.<br />
-            <span className="text-blue-500">Ative seus Agentes.</span>
+            IA se conecta no seu negócio,{' '}
+            <span className="text-blue-500">analisa tudo</span> e te entrega o que fazer — em 2 dias.
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             variants={fadeInUp}
-            className="mb-14 mx-auto max-w-2xl text-lg md:text-2xl leading-relaxed text-slate-400 font-medium"
+            className="mb-8 mx-auto max-w-2xl text-lg md:text-xl leading-relaxed text-slate-400 font-medium"
           >
-            A ciência de colocar <span className="text-white font-bold underline underline-offset-4 decoration-blue-500">IAs para trabalharem 24/7</span> como um exército disciplinado. Vendas, Tráfego e Conteúdo no piloto automático — sem folgas, sem erros e com escala infinita.
+            Empresário que não programa usa IA para fazer mais grana — sem agência, sem freelancer, sem depender de ninguém.{' '}
+            <span className="text-white font-bold">Ao vivo, do zero ao resultado, com os dados do seu negócio.</span>
           </motion.p>
-          
-          <motion.div 
-            variants={fadeInUp}
-            className="flex flex-col gap-8 items-center justify-center"
-          >
+
+          {/* Prova rápida */}
+          <motion.div variants={fadeInUp} className="mb-12 flex flex-wrap justify-center gap-8 text-center">
+            {[
+              { num: '3.800+', label: 'já participaram' },
+              { num: 'R$ 47K', label: 'verba desperdiçada encontrada' },
+              { num: '2 dias', label: 'ao vivo e executando' },
+              { num: '4.9/5', label: 'satisfação' },
+            ].map((s, i) => (
+              <div key={i} className="flex flex-col">
+                <span className="text-3xl font-black text-white">{s.num}</span>
+                <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href={checkoutUrl}
-              className="group relative flex items-center justify-center gap-4 overflow-hidden rounded-full bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 px-12 py-7 md:px-16 md:py-8 text-xl md:text-3xl font-black text-white shadow-[0_0_80px_rgba(37,99,235,0.4)] transition-all hover:scale-105 hover:shadow-blue-500/60 active:scale-95 border border-white/20"
+              href="#formulario"
+              className="group flex items-center gap-4 rounded-full bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 px-10 py-6 text-xl md:text-2xl font-black text-white shadow-[0_0_80px_rgba(37,99,235,0.4)] hover:scale-105 hover:shadow-blue-500/60 active:scale-95 border border-white/20 transition-all"
             >
-              ATIVAR MEU EXÉRCITO — R$ 47
-              <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
+              QUERO AUTOMATIZAR COM IA
+              <ArrowRight size={24} className="transition-transform group-hover:translate-x-2" />
             </a>
-            
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-2 text-sm font-bold text-emerald-400 uppercase tracking-widest">
-                <CheckCircle2 size={16} />
-                Lote 1: Restam apenas 14 acessos (Valor Promocional)
-              </div>
-              <div className="flex -space-x-3">
-                {[1,2,3,4,5].map(i => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-[#020617] bg-slate-800" />
-                ))}
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#020617] bg-blue-600 text-[10px] font-bold text-white">
-                  +2k
-                </div>
-              </div>
-              <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Aprovado por 2.487+ empresários e agências de elite</p>
-            </div>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="mt-6 flex items-center justify-center gap-3">
+            <ShieldCheck size={14} className="text-emerald-400" />
+            <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">Garantia de 7 dias • Risco zero • Menos de 2% pedem reembolso</span>
           </motion.div>
         </motion.div>
 
-        {/* Glow Particles */}
-        <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[120px]" />
+        <div className="absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[120px]" />
       </section>
 
-      {/* A Ferida (Pain Section) */}
-      <section className="mx-auto max-w-4xl px-6 py-32 text-center md:text-left border-t border-white/5 bg-gradient-to-b from-transparent to-blue-900/5">
-         <div className="grid gap-12 md:grid-cols-2 items-center">
-            <div className="space-y-6">
-               <h2 className="text-3xl md:text-5xl font-black leading-tight text-white">
-                  Até quando você será o <span className="text-red-500">escravo</span> da sua própria empresa?
-               </h2>
-               <p className="text-lg text-slate-400 font-medium">
-                  Se você para, o dinheiro para. Se você dorme, os leads morrem. Se você viaja, a operação quebra. Isso não é liberdade, é uma prisão digital luxuosa.
-               </p>
-            </div>
-            <div className="grid gap-4">
-               {[
-                 "DMs lotadas mas sem fechamento real",
-                 "Tráfego caro e leads desqualificados",
-                 "Gargalo na criação de conteúdo estratégico",
-                 "Custos exorbitantes com freelancers medianos"
-               ].map((dor, i) => (
-                 <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <AlertCircle size={20} className="text-red-500 shrink-0" />
-                    <span className="text-sm font-bold text-slate-300">{dor}</span>
-                 </div>
-               ))}
-            </div>
-         </div>
-      </section>
-
-      {/* Terminal Proof Section (Onde o Jogo Muda) */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mb-12 text-center">
-           <h3 className="text-xl md:text-3xl font-black text-white italic">"Isso é o que acontece quando o Agente SXS assume sua DM..."</h3>
-        </div>
-        <div className="rounded-[2.5rem] border border-white/10 bg-slate-950 p-2 shadow-2xl overflow-hidden glass">
-           <div className="bg-slate-900/50 p-6 md:p-12">
-             <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-4">
-                   <div className="flex gap-1.5">
-                     <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                     <div className="w-3 h-3 rounded-full bg-amber-500/50" />
-                     <div className="w-3 h-3 rounded-full bg-emerald-500/50" />
-                   </div>
-                   <div className="text-xs font-mono text-slate-500 uppercase tracking-widest leading-none">protocolo_sxs_v9.8.log</div>
-                </div>
-                <div className="flex items-center gap-2">
-                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                   <span className="text-[10px] font-mono text-emerald-500 font-bold">LINK ATIVO</span>
-                </div>
-             </div>
-             <div className="font-mono text-xs md:text-base space-y-4 text-blue-300">
-                <p> <span className="text-slate-600">[21:40:02]</span> • Inicializando rede de multi-agentes...</p>
-                <p> <span className="text-slate-600">[21:40:05]</span> • Sincronizando com Base de Conhecimento do Lucas.</p>
-                <p> <span className="text-slate-600">[21:40:12]</span> • <span className="text-amber-400">Lead @tiago_digital:</span> "Quanto custa o serviço?"</p>
-                <p> <span className="text-slate-600">[21:40:14]</span> • <span className="text-blue-400">Agente SDR:</span> [ANALISANDO OBJEÇÃO DE PREÇO]</p>
-                <p> <span className="text-slate-600">[21:40:18]</span> • <span className="text-blue-400">Agente SDR:</span> [RESPOSTA ENVIADA: VALOR AGREGADO + ANCORAGEM]</p>
-                <p className="font-bold text-emerald-400"> <span className="text-slate-600">[21:40:22]</span> • VENDA CONFIRMADA: R$ 1.997,00 (Link de Pagamento Enviado).</p>
-                <div className="h-4 w-2 bg-white animate-pulse inline-block" />
-             </div>
-           </div>
+      {/* ─── PROVA SOCIAL RÁPIDA ───────────────────────────────────────────────── */}
+      <section className="border-y border-white/5 bg-white/[0.02] py-6 overflow-hidden">
+        <div className="flex gap-16 whitespace-nowrap animate-marquee">
+          {[...Array(3)].map((_, r) =>
+            ['✅ Mapa de públicos que convertem', '✅ Ranking de criativos campeões', '✅ Campanha pronta para publicar', '✅ IA conectada na SUA conta', '✅ Simulação financeira completa', '✅ Dashboard personalizado'].map((item, i) => (
+              <span key={`${r}-${i}`} className="text-xs font-black text-slate-400 uppercase tracking-widest">{item}</span>
+            ))
+          )}
         </div>
       </section>
 
-      {/* Protocolo Section: O Arsenal */}
-      <section className="mx-auto max-w-6xl px-6 py-32" id="protocolo">
-        <div className="mb-24 text-center">
-          <span className="text-xs font-black uppercase tracking-[0.4em] text-blue-500 mb-6 block font-mono">Entrega de Elite</span>
-          <h2 className="mb-8 text-5xl font-black tracking-tight sm:text-7xl text-white">
-             Sua Operação <span className="text-blue-400 italic">Inalcançável.</span>
+      {/* ─── A DOR (O ABISMO DO TRÁFEGO) ──────────────────────────────────────── */}
+      <section className="mx-auto max-w-4xl px-6 py-28 text-center md:text-left">
+        <div className="mb-4 text-xs font-black uppercase tracking-[0.4em] text-blue-500">Antes de tudo, preciso te contar uma coisa</div>
+        <h2 className="mb-8 text-3xl md:text-5xl font-black leading-tight text-white">
+          Você já sabe que precisa anunciar.<br />
+          <span className="text-slate-500">Mas entre saber e fazer, tem um abismo.</span>
+        </h2>
+
+        <div className="mb-10 rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-lg text-slate-400 leading-relaxed italic">
+          "Tem o gestor de tráfego que cobra R$ 3.000+ e não explica nada. Tem a Meta que muda as regras toda semana. Tem as campanhas que você cria com cuidado… e morrem em 48 horas sem uma única venda."
+        </div>
+
+        <p className="mb-8 text-slate-400 text-lg leading-relaxed">
+          E tem você, tentando aprender sozinho, assistindo vídeo no YouTube, testando ferramenta nova todo mês, gastando dinheiro em curso que ensina teoria mas não mostra como <strong className="text-white">FAZER</strong>.
+        </p>
+
+        <p className="mb-8 text-slate-400 text-lg leading-relaxed">
+          Eu sei exatamente como isso é. Porque eu estava nesse ciclo. Não sou programador — sou empresário. Comecei usando IA para marketing porque precisava fazer mais grana sem aumentar os custos. E funcionou.
+        </p>
+
+        <div className="rounded-3xl border border-blue-500/30 bg-blue-600/5 p-8">
+          <p className="text-xl md:text-2xl font-black text-white leading-relaxed">
+            Eu descobri que a IA não é uma ferramenta — é uma <span className="text-blue-400">equipe inteira.</span>
+          </p>
+          <p className="mt-4 text-slate-400 leading-relaxed">
+            Não estou falando de ChatGPT escrevendo textinho de post. Estou falando de agentes de IA especializados que se conectam nos seus dados reais e fazem o trabalho de um time inteiro. E o melhor: você não precisa saber programar para usar.
+          </p>
+        </div>
+      </section>
+
+      {/* ─── NARRATIVA DO LUCAS ────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-4xl px-6 py-10 pb-28">
+        <div className="flex flex-col md:flex-row gap-10 items-start">
+          <div className="flex-1 space-y-6 text-slate-400 text-lg leading-relaxed">
+            <p>
+              Criei mais de <strong className="text-white">40 automações de IA</strong> para o meu negócio descrevendo em português o que eu queria. Sem código. Sem DevOps. Sem agência.
+            </p>
+            <p>
+              Cancelei ferramentas caras que eu pagava por meses sem resultado. Ganhei autonomia total para testar campanhas, produzir conteúdo e atender clientes — com a IA trabalhando enquanto eu durmo.
+            </p>
+            <p className="text-white font-bold text-xl">
+              Se eu consegui sem programar, você também consegue. E em 2 dias, eu te mostro como.
+            </p>
+          </div>
+          <div className="w-full md:w-56 shrink-0 rounded-3xl border border-white/10 overflow-hidden bg-slate-900">
+            <img
+              src="/images/lucas-ferrari.webp"
+              alt="Lucas Ferrari"
+              className="w-full h-auto object-cover aspect-[3/4]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ENTREGÁVEIS ──────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-6xl px-6 py-20 border-t border-white/5">
+        <div className="mb-16 text-center">
+          <span className="text-xs font-black uppercase tracking-[0.4em] text-blue-500 mb-4 block">O que você leva</span>
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+            6 Entregáveis Concretos em 2 Dias
           </h2>
-          <p className="mx-auto max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-medium">
-            Esqueça cursos que ensinam a conversar com o ChatGPT. O Seleção IA entrega a **estrutura de automação** pronta para quem não tem tempo a perder.
+          <p className="mt-4 text-slate-500 font-bold text-sm md:text-base uppercase tracking-widest">
+            Você não sai "sabendo" — você sai com tudo funcionando na sua conta.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {modulos.map((modulo, idx) => (
-            <div
-              key={idx}
-              className="group relative flex flex-col justify-between rounded-[2rem] border border-white/10 bg-white/[0.03] p-10 transition-all hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-2 shadow-xl shadow-black/20"
-            >
-              <div>
-                <div className="mb-10 flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-400 border border-blue-500/10 group-hover:scale-110 transition-transform">
-                    {modulo.icon}
-                  </div>
-                  <div className="flex items-center gap-1.5 rounded-full bg-blue-600/20 px-4 py-1.5 text-[10px] font-black uppercase text-blue-300">
-                    <Trophy size={12} />
-                    {modulo.tempo}
-                  </div>
-                </div>
-                <h3 className="mb-5 text-2xl font-black text-white group-hover:text-blue-400 transition-colors leading-[1.2]">
-                  {modulo.titulo}
-                </h3>
-                <p className="mb-10 text-sm md:text-base leading-relaxed text-slate-400 font-medium">
-                  {modulo.descricao}
-                </p>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {entregaveis.map((e, i) => (
+            <div key={i} className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 transition-all hover:border-blue-500/40 hover:bg-white/[0.06] hover:-translate-y-2">
+              <div className="mb-6 flex items-center justify-between">
+                <span className="text-5xl font-black text-blue-600/40">{e.num}</span>
+                <ChevronRight size={20} className="text-slate-700 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
               </div>
-              <div className="flex items-center justify-between border-t border-white/5 pt-8">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600">Protocolo Ativado</span>
-                <ChevronRight size={20} className="text-slate-700 transition-transform group-hover:translate-x-2 group-hover:text-blue-400" />
+              <h3 className="mb-3 text-xl font-black text-white group-hover:text-blue-400 transition-colors leading-tight">{e.titulo}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">{e.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 rounded-3xl border border-blue-500/20 bg-blue-600/5 p-8 text-center">
+          <div className="text-slate-500 line-through text-sm mb-2 font-bold">Valor real desses entregáveis: R$ 9.991</div>
+          <div className="text-2xl font-black text-white mb-1">Você leva tudo por apenas</div>
+          <div className="text-6xl font-black text-blue-400">R$ 147</div>
+          <div className="text-xs text-slate-600 font-bold uppercase tracking-widest mt-2">ou 12x de R$ 15,20</div>
+        </div>
+      </section>
+
+      {/* ─── CRONOGRAMA ───────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-5xl px-6 py-20 border-t border-white/5">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-5xl font-black text-white">O que acontece em cada dia</h2>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2">
+          {[
+            {
+              dia: 'Dia 1',
+              titulo: 'Do Zero ao Raio-X Completo',
+              itens: [
+                'Por que 99% usa IA errado (e como mudar isso)',
+                'IA instalada e conectada no seu negócio',
+                'Raio-X de todas as suas campanhas e publicações',
+                'Simulação financeira: quanto você está perdendo',
+              ],
+            },
+            {
+              dia: 'Dia 2',
+              titulo: 'Da Análise à Ação',
+              itens: [
+                'Quais criativos realmente vendem (com dados seus)',
+                'IA gerando cópias e roteiros com seus dados reais',
+                'Sua próxima campanha criada pela IA',
+                'Automação de atendimento configurada e rodando',
+              ],
+            },
+          ].map((dia, i) => (
+            <div key={i} className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-8">
+              <div className="mb-4 inline-flex rounded-full bg-blue-600/20 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-blue-300">
+                {dia.dia}
               </div>
+              <h3 className="mb-6 text-2xl font-black text-white">{dia.titulo}</h3>
+              <ul className="space-y-3">
+                {dia.itens.map((item, j) => (
+                  <li key={j} className="flex items-start gap-3 text-slate-400 text-sm">
+                    <CheckCircle2 size={16} className="text-blue-400 shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Social Proof Real: ROI de Quem Aplicou */}
-      <section className="mx-auto max-w-6xl px-6 py-24 border-y border-white/5 bg-blue-600/[0.02]">
-        <div className="grid gap-8 md:grid-cols-3">
-          {depoimentos.map((dep, idx) => (
-            <div key={idx} className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 glass hover:bg-white/[0.04] transition-all">
-              <div className="flex gap-1 mb-5">
-                {[...Array(dep.estrelas)].map((_, i) => <Star key={i} size={14} className="fill-blue-500 text-blue-500" />)}
-              </div>
-              <p className="text-lg font-bold text-white mb-6 leading-relaxed">"{dep.texto}"</p>
-              <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-                <div className="h-10 w-10 rounded-full bg-blue-900/50 border border-blue-500/20" />
-                <div>
-                  <p className="text-sm font-black text-white uppercase tracking-tighter">{dep.nome}</p>
-                  <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{dep.cargo}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Arsenal de Elite (Upsells/Bumps) */}
-      <section className="mx-auto max-w-6xl px-6 py-40">
-        <div className="mb-20 text-center">
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-6 italic underline decoration-blue-500/30">Arsenal de Elite</h2>
-          <p className="text-slate-500 font-bold text-sm md:text-lg uppercase tracking-widest">Aceleração máxima para quem não quer apenas aprender, mas EXECUTAR.</p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3">
-          {orderBumps.map((bump, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col justify-between rounded-[2.5rem] border border-white/10 bg-white/[0.02] p-10 transition-all hover:bg-white/[0.05] hover:border-blue-500/30 group shadow-2xl"
-            >
-              <div>
-                <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400 mx-auto md:mx-0 shadow-[inset_0_0_30px_rgba(37,99,235,0.15)] border border-blue-500/10 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  {bump.icon}
-                </div>
-                <h3 className="mb-5 text-2xl font-black leading-tight text-white">
-                  {bump.titulo}
-                </h3>
-                <p className="mb-10 text-sm md:text-base leading-relaxed text-slate-400 font-medium italic">
-                  {bump.descricao}
-                </p>
-                <div className="mb-10 flex flex-col gap-1">
-                  <span className="text-xs font-bold text-slate-600 line-through tracking-widest">
-                    VALOR NORMAL: {bump.precoOriginal}
-                  </span>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xs font-bold text-blue-400 uppercase">Apenas</span>
-                    <span className="text-5xl font-black text-white tracking-tighter">
-                      {bump.precoFinal}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <a
-                href={checkoutUrl}
-                className="group block rounded-2xl bg-white/5 border border-white/10 p-5 text-center text-xs font-black text-white transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 uppercase tracking-widest"
-              >
-                ADICIONAR AO MEU ARSENAL
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Risco Zero - Garantia Real */}
-      <section className="mx-auto max-w-5xl px-6 py-40">
-        <div className="relative rounded-[4rem] border border-blue-500/40 bg-blue-500/5 p-16 md:p-32 overflow-hidden shadow-2xl glass text-center">
-          <div className="absolute top-0 right-0 p-12 opacity-5 -rotate-12 pointer-events-none">
-            <ShieldCheck size={300} className="text-blue-500" />
-          </div>
-          
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-6 py-2 text-xs font-black uppercase tracking-[0.3em] text-emerald-400 mb-12 border border-emerald-500/30 shadow-lg shadow-emerald-500/10">
-              <Lock size={14} />
-              Garantia de Infiltrado XS (7 Dias)
-            </div>
-            
-            <h2 className="mb-12 text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white">
-              É Lucro ou <br />
-              <span className="text-blue-500 italic">Desistência.</span>
-            </h2>
-            
-            <p className="mx-auto mb-16 max-w-2xl text-lg md:text-2xl text-slate-400 leading-relaxed font-medium">
-               Se em 7 dias você não provar o gosto da liberdade que as automações trazem, eu devolvo cada centavo. **Sem perguntas, sem burocracia, sem ressentimentos.** O único risco é você continuar fazendo tudo sozinho.
-            </p>
-            
-            <a
-              href={checkoutUrl}
-              className="group relative inline-flex items-center gap-6 rounded-full bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 px-16 py-8 text-2xl md:text-4xl font-black text-white transition-all hover:scale-110 hover:shadow-[0_0_100px_rgba(37,99,235,0.6)] active:scale-95 border border-white/20 shadow-2xl shadow-blue-500/30"
-            >
-              ATIVAR MEU EXÉRCITO — R$ 47
-              <ArrowRight size={38} className="transition-transform group-hover:translate-x-3" />
-            </a>
-            
-            <div className="mt-12 flex items-center gap-6 text-[11px] font-bold text-slate-500 uppercase tracking-[0.4em]">
-               <span>Ambiente Seguro</span>
-               <span className="w-1.5 h-1.5 rounded-full bg-slate-800" />
-               <span>Acesso Vitalício</span>
-               <span className="w-1.5 h-1.5 rounded-full bg-slate-800" />
-               <span>Risco Zero</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bio: O Arquiteto do Protocolo */}
-      <section className="mx-auto max-w-6xl px-6 py-40 border-t border-white/5">
-        <div className="grid gap-20 md:grid-cols-2 items-center">
-          <div className="relative group">
-            <div className="absolute -inset-10 bg-blue-600 rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity" />
-            <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-700 transform hover:scale-[1.01]">
-              <img 
-                src="/images/lucas-ferrari.webp" 
-                alt="Lucas Ferrari" 
-                className="w-full h-auto object-cover aspect-[4/5] scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
-            </div>
-          </div>
-          <div className="space-y-10">
-            <div className="space-y-4">
-              <span className="text-blue-500 font-black uppercase tracking-[0.4em] text-xs font-mono">O Estrategista</span>
-              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">Lucas Ferrari</h2>
-              <div className="w-20 h-1 bg-blue-600" />
-            </div>
-            <p className="text-xl md:text-2xl text-slate-400 leading-relaxed font-medium">
-               Não sou um "guru" de IA. Sou um empresário obcecado por **sistemas que escalam**. O Protocolo SXS foi desenvolvido no campo de batalha para salvar minha própria liberdade — e agora ele está disponível para você.
-            </p>
-            <div className="grid gap-6">
+      {/* ─── QUALIFICAÇÃO ─────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-4xl px-6 py-20 border-t border-white/5">
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-8">
+            <h3 className="mb-6 text-xl font-black text-emerald-400">✅ É pra você se...</h3>
+            <ul className="space-y-3">
               {[
-                "Criador da Metodologia Agente-SXS",
-                "Estrategista de Escala para Negócios de Elite",
-                "Arquiteto de Sistemas de Automação IA"
+                'Você investe em anúncios mas não sabe o que está dando resultado',
+                'Quer dominar seu tráfego sem depender de gestor ou agência',
+                'Perde horas em tarefas que a IA poderia fazer em minutos',
+                'Quer sair com ferramentas funcionando — não com teoria',
+                'É empresário e quer usar IA para vender mais sem aumentar custos',
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-5 text-slate-200">
-                  <div className="h-6 w-6 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center">
-                    <CheckCircle2 size={12} className="text-blue-400" />
-                  </div>
-                  <span className="font-bold text-lg tracking-tight">{item}</span>
-                </div>
+                <li key={i} className="flex items-start gap-3 text-slate-300 text-sm">
+                  <CheckCircle2 size={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                  {item}
+                </li>
               ))}
-            </div>
-            <div className="pt-6">
-              <a 
-                href={checkoutUrl}
-                className="inline-flex items-center gap-3 text-white font-black hover:text-blue-400 transition-colors uppercase tracking-[0.2em] text-sm group border-b-2 border-white/10 pb-2"
-              >
-                QUERO O ACESSO AGORA
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-2" />
-              </a>
-            </div>
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8">
+            <h3 className="mb-6 text-xl font-black text-red-400">❌ Não é pra você se...</h3>
+            <ul className="space-y-3">
+              {[
+                'Quer resultado sem nenhum esforço',
+                'Acha que a IA faz tudo sozinha sem estratégia',
+                'Não quer aprender coisas novas',
+                'Prefere continuar no manual e torcer para melhorar',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-slate-400 text-sm">
+                  <AlertCircle size={14} className="text-red-400 shrink-0 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Footer: O Fim da Espera */}
-      <footer className="border-t border-white/5 py-32 bg-black/40 relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-full h-[500px] bg-blue-900/10 blur-[150px] -z-10" />
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="flex flex-col items-center justify-between gap-16 md:flex-row">
-            <div className="text-center md:text-left space-y-4">
-               <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
-                  <Cpu size={32} className="text-blue-500" />
-                  <span className="text-3xl font-black tracking-tighter italic text-white uppercase">Seleção IA</span>
-               </div>
-               <p className="text-sm font-medium text-slate-500 max-w-xs leading-relaxed">
-                 O benchmark definitivo para empresários que entenderam que a IA é a única forma de sobreviver em 2026.
-               </p>
-            </div>
-            
-            <div className="flex flex-col items-center md:items-end gap-6 text-center md:text-right">
-              <div className="flex gap-12 text-xs font-black text-slate-400 uppercase tracking-widest">
-                <a href="#" className="hover:text-blue-400 transition-colors">Privacidade</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">Termos de Uso</a>
+      {/* ─── DEPOIMENTOS ──────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-6xl px-6 py-20 border-t border-white/5">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-5xl font-black text-white">O que dizem os alunos</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {depoimentos.map((dep, i) => (
+            <div key={i} className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 hover:bg-white/[0.04] transition-all">
+              <div className="mb-4 flex gap-1">
+                {[...Array(5)].map((_, j) => <Star key={j} size={14} className="fill-blue-500 text-blue-500" />)}
               </div>
-              <p className="text-[10px] font-bold text-slate-700 uppercase tracking-[0.5em]">
-                © 2026 Lucas Ferrari • Todos os direitos reservados.
-              </p>
+              <p className="mb-6 text-base font-bold text-white leading-relaxed">"{dep.texto}"</p>
+              <div className="border-t border-white/5 pt-5">
+                <p className="text-sm font-black text-white uppercase">{dep.nome}</p>
+                <p className="text-[11px] font-bold text-blue-500 uppercase tracking-widest">{dep.cargo}</p>
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── GARANTIA ─────────────────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-4xl px-6 py-20">
+        <div className="relative rounded-[3rem] border border-blue-500/30 bg-blue-500/5 p-12 md:p-20 overflow-hidden text-center">
+          <div className="absolute top-0 right-0 p-10 opacity-5 -rotate-12 pointer-events-none">
+            <ShieldCheck size={250} className="text-blue-400" />
           </div>
+          <div className="relative z-10">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-5 py-2 text-xs font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30">
+              <Lock size={12} />
+              Garantia de 7 dias — Risco Zero
+            </div>
+            <h2 className="mb-6 text-4xl md:text-6xl font-black text-white tracking-tighter">
+              É resultado ou<br /><span className="text-blue-400 italic">dinheiro de volta.</span>
+            </h2>
+            <p className="mx-auto max-w-xl text-lg text-slate-400 leading-relaxed">
+              Se em 7 dias você não sentir que valeu cada centavo, eu devolvo tudo. Sem perguntas, sem burocracia. O único risco é você continuar fazendo tudo no braço enquanto seus concorrentes usam IA.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FORMULÁRIO FINAL ─────────────────────────────────────────────────── */}
+      <section id="formulario" className="mx-auto max-w-2xl px-6 py-20 border-t border-white/5 text-center">
+        <div className="mb-4 text-xs font-black uppercase tracking-[0.4em] text-blue-500">Quase lá</div>
+        <h2 className="mb-4 text-3xl md:text-5xl font-black text-white leading-tight">
+          A IA encontrou R$ 47 mil desperdiçados na conta de um aluno.{' '}
+          <span className="text-blue-400">Quanto ela vai encontrar na sua?</span>
+        </h2>
+        <p className="mb-12 text-slate-400 text-lg leading-relaxed">
+          Deixe seu contato e eu te mando pessoalmente os detalhes da imersão + uma surpresa antes de começar.
+        </p>
+
+        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
+          <LeadForm />
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 items-center text-xs text-slate-600 font-bold uppercase tracking-widest">
+          <div className="flex items-center gap-2"><ShieldCheck size={12} className="text-emerald-500" /> Ambiente seguro e criptografado</div>
+          <div className="flex items-center gap-2"><Lock size={12} className="text-blue-500" /> Seus dados não são compartilhados</div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-16 bg-black/40">
+        <div className="mx-auto max-w-6xl px-6 flex flex-col items-center justify-between gap-8 md:flex-row">
+          <div className="flex items-center gap-3">
+            <Cpu size={24} className="text-blue-500" />
+            <span className="text-xl font-black italic uppercase text-white">Seleção IA</span>
+          </div>
+          <div className="flex gap-8 text-xs font-black text-slate-500 uppercase tracking-widest">
+            <a href="#" className="hover:text-blue-400 transition-colors">Privacidade</a>
+            <a href="#" className="hover:text-blue-400 transition-colors">Termos de Uso</a>
+          </div>
+          <p className="text-[10px] font-bold text-slate-700 uppercase tracking-[0.5em]">
+            © 2026 Lucas Ferrari • Todos os direitos reservados.
+          </p>
         </div>
       </footer>
+
+      <style jsx global>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+          width: max-content;
+        }
+      `}</style>
     </div>
   )
 }
